@@ -22,6 +22,11 @@ Models galactic rotation curves and relativistic environments without Dark Matte
 * **Variable ISM Mass-Shells:** Calculates active gravitational mass based on V scales with D^3 expanding spheres of influence and 1/r^2 density decay from the galactic core.
 * **Relativistic Decoupling:** Applies the sech^2(phi) restrictor valve to galactic scaling, demonstrating how active gravitational mass decouples in extreme velocity environments.
 
+### Refractive Lens-Engine (lens_engine.cpp)
+Models gravity as an optical phase-shift rather than spacetime curvature.
+* **Trace Plane Density Gradient:** Maps the x_i metric pressure of a central mass as a variable refractive index n(r) upon the coordinate trace plane.
+* **Eddington Deflection:** Computationally derives the 1.75 arcsecond solar eclipse deflection of a photon traveling entirely within the x_r manifold via Fermat's principle.
+
 ## 3. Compiling and Running Locally
 
 To test the engines on your local machine, clone the repository and compile using standard C++11 (or higher).
@@ -33,3 +38,7 @@ g++ -std=c++11 micro_engine.cpp -o micro_engine
 **Run the Macro-Engine:**
 g++ -std=c++11 engine.cpp -o engine
 ./engine
+
+**Run the Lens-Engine:**
+g++ -std=c++11 lens_engine.cpp -o lens_engine
+./lens_engine
