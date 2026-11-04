@@ -1,0 +1,2468 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 13.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[     13628,        337]
+NotebookOptionsPosition[     13148,        320]
+NotebookOutlinePosition[     13544,        336]
+CellTagsIndexPosition[     13501,        333]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", 
+   RowBox[{"phase_kinetics", ".", 
+    RowBox[{"m", ":", 
+     RowBox[{"SO", 
+      RowBox[{"(", 
+       RowBox[{"4", ",", "4"}], ")"}], " ", "3", "D", " ", "Bipartite", " ", 
+      "M\[ODoubleDot]bius", " ", "Braid"}]}]}], "*)"}], 
+  RowBox[{"Manipulate", "[", 
+   RowBox[{
+    RowBox[{"Module", "[", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{
+       "bulkSphere", ",", "matterTrace", ",", "antimatterTrace", ",", "k"}], 
+       "}"}], ",", 
+      RowBox[{"(*", 
+       RowBox[{
+        RowBox[{
+         RowBox[{"Using", " ", "a", " ", "half"}], "-", 
+         RowBox[{"integer", " ", "frequency", " ", 
+          RowBox[{"(", 
+           RowBox[{"freq", "/", "2"}], ")"}], " ", "forces", " ", "the", " ", 
+          "M\[ODoubleDot]bius", " ", 
+          RowBox[{"topology", ".", "A"}], " ", "full", " ", "4", "\[Pi]", " ",
+           "rotation", " ", "is", " ", "required", " ", "to", " ", "close", 
+          " ", "the", " ", "loop"}]}], ",", 
+        RowBox[{
+         RowBox[{
+         "splitting", " ", "naturally", " ", "into", " ", "two", " ", "2", 
+          "\[Pi]", " ", "out"}], "-", "of", "-", 
+         RowBox[{"phase", " ", "halves", " ", 
+          RowBox[{
+           RowBox[{"(", 
+            RowBox[{"Matter", " ", "and", " ", "Antimatter"}], ")"}], 
+           "."}]}]}]}], "*)"}], 
+      RowBox[{
+       RowBox[{"k", "=", 
+        RowBox[{"freq", "/", "2"}]}], ";", "\[IndentingNewLine]", 
+       RowBox[{"(*", 
+        RowBox[{
+        "Parametric", " ", "equations", " ", "for", " ", "the", " ", "wave", 
+         " ", "wrapped", " ", "around", " ", "the", " ", "bulk", " ", 
+         "sphere"}], "*)"}], 
+       RowBox[{
+        RowBox[{"x", "[", "t_", "]"}], ":=", 
+        RowBox[{
+         RowBox[{"(", 
+          RowBox[{"bulkRadius", "+", 
+           RowBox[{"waveAmplitude", "*", 
+            RowBox[{"Cos", "[", 
+             RowBox[{"braidTwist", "*", "t"}], "]"}]}]}], ")"}], "*", 
+         RowBox[{"Cos", "[", "t", "]"}], "*", 
+         RowBox[{"Cos", "[", 
+          RowBox[{"k", "*", "t"}], "]"}]}]}], ";", "\[IndentingNewLine]", 
+       RowBox[{
+        RowBox[{"y", "[", "t_", "]"}], ":=", 
+        RowBox[{
+         RowBox[{"(", 
+          RowBox[{"bulkRadius", "+", 
+           RowBox[{"waveAmplitude", "*", 
+            RowBox[{"Cos", "[", 
+             RowBox[{"braidTwist", "*", "t"}], "]"}]}]}], ")"}], "*", 
+         RowBox[{"Sin", "[", "t", "]"}], "*", 
+         RowBox[{"Cos", "[", 
+          RowBox[{"k", "*", "t"}], "]"}]}]}], ";", "\[IndentingNewLine]", 
+       RowBox[{
+        RowBox[{"z", "[", "t_", "]"}], ":=", 
+        RowBox[{
+         RowBox[{"(", 
+          RowBox[{"bulkRadius", "+", 
+           RowBox[{"waveAmplitude", "*", 
+            RowBox[{"Cos", "[", 
+             RowBox[{"braidTwist", "*", "t"}], "]"}]}]}], ")"}], "*", 
+         RowBox[{"Sin", "[", 
+          RowBox[{"k", "*", "t"}], "]"}]}]}], ";", "\[IndentingNewLine]", 
+       RowBox[{"(*", 
+        RowBox[{"The", " ", "central", " ", "6", 
+         RowBox[{"D", "/", "8"}], "D", " ", "Bulk", " ", 
+         RowBox[{"(", "Translucent", ")"}]}], "*)"}], 
+       RowBox[{"bulkSphere", "=", 
+        RowBox[{"Graphics3D", "[", 
+         RowBox[{"{", 
+          RowBox[{
+           RowBox[{"Opacity", "[", "0.3", "]"}], ",", "LightGray", ",", 
+           RowBox[{"Sphere", "[", 
+            RowBox[{
+             RowBox[{"{", 
+              RowBox[{"0", ",", "0", ",", "0"}], "}"}], ",", "bulkRadius"}], 
+            "]"}]}], "}"}], "]"}]}], ";", "\[IndentingNewLine]", 
+       RowBox[{"(*", 
+        RowBox[{"The", " ", "First", " ", "2", "\[Pi]", " ", 
+         RowBox[{"Cycle", ":", 
+          RowBox[{"Matter", " ", 
+           RowBox[{"(", 
+            RowBox[{
+             RowBox[{
+              RowBox[{"+", "mi"}], "/", "Real"}], " ", "Dominant"}], 
+            ")"}]}]}]}], "*)"}], 
+       RowBox[{"matterTrace", "=", 
+        RowBox[{"ParametricPlot3D", "[", 
+         RowBox[{
+          RowBox[{"{", 
+           RowBox[{
+            RowBox[{"x", "[", "t", "]"}], ",", 
+            RowBox[{"y", "[", "t", "]"}], ",", 
+            RowBox[{"z", "[", "t", "]"}]}], "}"}], ",", 
+          RowBox[{"{", 
+           RowBox[{"t", ",", "0", ",", 
+            RowBox[{"2", " ", "Pi"}]}], "}"}], ",", 
+          RowBox[{"PlotStyle", "->", 
+           RowBox[{"Directive", "[", 
+            RowBox[{
+             RowBox[{"Thickness", "[", "0.015", "]"}], ",", "Blue", ",", 
+             RowBox[{"Specularity", "[", 
+              RowBox[{"White", ",", "50"}], "]"}]}], "]"}]}], ",", 
+          RowBox[{"PlotLegends", "->", 
+           RowBox[{"{", "\"\<Matter Wave (+mi Phase)\>\"", "}"}]}]}], "]"}]}],
+        ";", "\[IndentingNewLine]", 
+       RowBox[{"(*", 
+        RowBox[{"The", " ", "Second", " ", "2", "\[Pi]", " ", 
+         RowBox[{"Cycle", ":", 
+          RowBox[{"Antimatter", " ", 
+           RowBox[{"(", 
+            RowBox[{
+             RowBox[{
+              RowBox[{"-", "mi"}], "/", "Imaginary"}], " ", "Dominant"}], 
+            ")"}]}]}]}], "*)"}], 
+       RowBox[{"antimatterTrace", "=", 
+        RowBox[{"ParametricPlot3D", "[", 
+         RowBox[{
+          RowBox[{"{", 
+           RowBox[{
+            RowBox[{"x", "[", "t", "]"}], ",", 
+            RowBox[{"y", "[", "t", "]"}], ",", 
+            RowBox[{"z", "[", "t", "]"}]}], "}"}], ",", 
+          RowBox[{"{", 
+           RowBox[{"t", ",", 
+            RowBox[{"2", " ", "Pi"}], ",", 
+            RowBox[{"4", " ", "Pi"}]}], "}"}], ",", 
+          RowBox[{"PlotStyle", "->", 
+           RowBox[{"Directive", "[", 
+            RowBox[{
+             RowBox[{"Thickness", "[", "0.015", "]"}], ",", "Red", ",", 
+             RowBox[{"Specularity", "[", 
+              RowBox[{"White", ",", "50"}], "]"}]}], "]"}]}], ",", 
+          RowBox[{"PlotLegends", "->", 
+           RowBox[{"{", "\"\<Antimatter Wave (-mi Phase)\>\"", "}"}]}]}], 
+         "]"}]}], ";", "\[IndentingNewLine]", 
+       RowBox[{"(*", 
+        RowBox[{
+        "Combine", " ", "and", " ", "render", " ", "the", " ", "entangled", 
+         " ", "geometry"}], "*)"}], 
+       RowBox[{"Show", "[", 
+        RowBox[{"bulkSphere", ",", "matterTrace", ",", "antimatterTrace", ",", 
+         RowBox[{"PlotRange", "->", "All"}], ",", 
+         RowBox[{"Boxed", "->", "False"}], ",", 
+         RowBox[{"Axes", "->", "False"}], ",", 
+         RowBox[{"Background", "->", "Black"}], ",", 
+         RowBox[{"ImageSize", "->", "Large"}], ",", 
+         RowBox[{"PlotLabel", "->", 
+          RowBox[{"Style", "[", 
+           RowBox[{
+           "\"\<SO(4,4) Spin-Paired Bipartite Braid\>\"", ",", "White", ",", 
+            "14", ",", "Bold"}], "]"}]}]}], "]"}]}]}], "]"}], ",", 
+    RowBox[{"(*", 
+     RowBox[{"Topology", " ", "and", " ", "Harmonic", " ", "Sliders"}], 
+     "*)"}], 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{
+       "freq", ",", "7", ",", 
+        "\"\<Harmonic Nodes (Must be Odd for M\[ODoubleDot]bius Twist)\>\""}],
+        "}"}], ",", "1", ",", "15", ",", "2"}], "}"}], ",", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{
+       "bulkRadius", ",", "3.0", ",", "\"\<Radius of the Inner Bulk\>\""}], 
+       "}"}], ",", "1.0", ",", "5.0"}], "}"}], ",", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{
+       "waveAmplitude", ",", "0.5", ",", 
+        "\"\<Amplitude of the Metric Wave\>\""}], "}"}], ",", "0.1", ",", 
+      "2.0"}], "}"}], ",", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{
+       "braidTwist", ",", "2.0", ",", 
+        "\"\<Secondary Double-Dutch Braid Twist\>\""}], "}"}], ",", "0", ",", 
+      "5"}], "}"}]}], "]"}]}]], "Input",
+ CellChangeTimes->{{4.002441968601921*^9, 4.002441968603223*^9}},
+ CellLabel->"In[4]:=",ExpressionUUID->"a3ab36e5-d570-4333-b265-632dab06ea1d"],
+
+Cell[BoxData[
+ TagBox[
+  StyleBox[
+   DynamicModuleBox[{$CellContext`braidTwist$$ = 
+    2., $CellContext`bulkRadius$$ = 3., $CellContext`freq$$ = 
+    7, $CellContext`waveAmplitude$$ = 0.5, Typeset`show$$ = True, 
+    Typeset`bookmarkList$$ = {}, Typeset`bookmarkMode$$ = "Menu", 
+    Typeset`animator$$, Typeset`animvar$$ = 1, Typeset`name$$ = 
+    "\"untitled\"", Typeset`specs$$ = {{{
+       Hold[$CellContext`freq$$], 7, 
+       "Harmonic Nodes (Must be Odd for M\[ODoubleDot]bius Twist)"}, 1, 15, 
+      2}, {{
+       Hold[$CellContext`bulkRadius$$], 3., "Radius of the Inner Bulk"}, 1., 
+      5.}, {{
+       Hold[$CellContext`waveAmplitude$$], 0.5, 
+       "Amplitude of the Metric Wave"}, 0.1, 2.}, {{
+       Hold[$CellContext`braidTwist$$], 2., 
+       "Secondary Double-Dutch Braid Twist"}, 0, 5}}, Typeset`size$$ = {
+    789., {295., 299.}}, Typeset`update$$ = 0, Typeset`initDone$$, 
+    Typeset`skipInitDone$$ = True}, 
+    DynamicBox[Manipulate`ManipulateBoxes[
+     1, StandardForm, 
+      "Variables" :> {$CellContext`braidTwist$$ = 
+        2., $CellContext`bulkRadius$$ = 3., $CellContext`freq$$ = 
+        7, $CellContext`waveAmplitude$$ = 0.5}, "ControllerVariables" :> {}, 
+      "OtherVariables" :> {
+       Typeset`show$$, Typeset`bookmarkList$$, Typeset`bookmarkMode$$, 
+        Typeset`animator$$, Typeset`animvar$$, Typeset`name$$, 
+        Typeset`specs$$, Typeset`size$$, Typeset`update$$, Typeset`initDone$$,
+         Typeset`skipInitDone$$}, "Body" :> 
+      Module[{$CellContext`bulkSphere$, $CellContext`matterTrace$, \
+$CellContext`antimatterTrace$, $CellContext`k$}, $CellContext`k$ = \
+$CellContext`freq$$/2; $CellContext`x[
+           Pattern[$CellContext`t$, 
+            
+            Blank[]]] := ($CellContext`bulkRadius$$ + \
+$CellContext`waveAmplitude$$ Cos[$CellContext`braidTwist$$ $CellContext`t$]) 
+          Cos[$CellContext`t$] 
+          Cos[$CellContext`k$ $CellContext`t$]; $CellContext`y[
+           Pattern[$CellContext`t$, 
+            
+            Blank[]]] := ($CellContext`bulkRadius$$ + \
+$CellContext`waveAmplitude$$ Cos[$CellContext`braidTwist$$ $CellContext`t$]) 
+          Sin[$CellContext`t$] 
+          Cos[$CellContext`k$ $CellContext`t$]; $CellContext`z[
+           Pattern[$CellContext`t$, 
+            
+            Blank[]]] := ($CellContext`bulkRadius$$ + \
+$CellContext`waveAmplitude$$ Cos[$CellContext`braidTwist$$ $CellContext`t$]) 
+          Sin[$CellContext`k$ $CellContext`t$]; $CellContext`bulkSphere$ = 
+         Graphics3D[{
+            Opacity[0.3], LightGray, 
+            
+            Sphere[{0, 0, 
+             0}, $CellContext`bulkRadius$$]}]; $CellContext`matterTrace$ = 
+         ParametricPlot3D[{
+            $CellContext`x[$CellContext`t], 
+            $CellContext`y[$CellContext`t], 
+            $CellContext`z[$CellContext`t]}, {$CellContext`t, 0, 2 Pi}, 
+           PlotStyle -> Directive[
+             Thickness[0.015], Blue, 
+             Specularity[White, 50]], 
+           PlotLegends -> {
+            "Matter Wave (+mi Phase)"}]; $CellContext`antimatterTrace$ = 
+         ParametricPlot3D[{
+            $CellContext`x[$CellContext`t], 
+            $CellContext`y[$CellContext`t], 
+            $CellContext`z[$CellContext`t]}, {$CellContext`t, 2 Pi, 4 Pi}, 
+           PlotStyle -> Directive[
+             Thickness[0.015], Red, 
+             Specularity[White, 50]], 
+           PlotLegends -> {"Antimatter Wave (-mi Phase)"}]; 
+        Show[$CellContext`bulkSphere$, $CellContext`matterTrace$, \
+$CellContext`antimatterTrace$, PlotRange -> All, Boxed -> False, Axes -> 
+          False, Background -> Black, ImageSize -> Large, PlotLabel -> 
+          Style["SO(4,4) Spin-Paired Bipartite Braid", White, 14, Bold]]], 
+      "Specifications" :> {{{$CellContext`freq$$, 7, 
+          "Harmonic Nodes (Must be Odd for M\[ODoubleDot]bius Twist)"}, 1, 15,
+          2}, {{$CellContext`bulkRadius$$, 3., "Radius of the Inner Bulk"}, 
+         1., 5.}, {{$CellContext`waveAmplitude$$, 0.5, 
+          "Amplitude of the Metric Wave"}, 0.1, 
+         2.}, {{$CellContext`braidTwist$$, 2., 
+          "Secondary Double-Dutch Braid Twist"}, 0, 5}}, "Options" :> {}, 
+      "DefaultOptions" :> {}],
+     ImageSizeCache->{833., {382., 387.}},
+     SingleEvaluation->True],
+    Deinitialization:>None,
+    DynamicModuleValues:>{},
+    SynchronousInitialization->True,
+    UndoTrackedVariables:>{Typeset`show$$, Typeset`bookmarkMode$$},
+    UnsavedVariables:>{Typeset`initDone$$},
+    UntrackedVariables:>{Typeset`size$$}], "Manipulate",
+   Deployed->True,
+   StripOnInput->False],
+  Manipulate`InterpretManipulate[1]]], "Output",
+ CellChangeTimes->{4.002442023695549*^9},
+ CellLabel->"Out[4]=",ExpressionUUID->"f9edb0a3-325e-47f5-8895-45d2e7e8ceca"]
+}, Open  ]]
+},
+WindowSize->{808, 911},
+WindowMargins->{{35, Automatic}, {24, Automatic}},
+FrontEndVersion->"13.0 for Mac OS X ARM (64-bit) (February 4, 2022)",
+StyleDefinitions->"Default.nb",
+ExpressionUUID->"60aae3e0-210b-4093-a8c1-8e406ddc4e7b"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[580, 22, 7814, 197, 631, "Input",ExpressionUUID->"a3ab36e5-d570-4333-b265-632dab06ea1d"],
+Cell[8397, 221, 4735, 96, 788, "Output",ExpressionUUID->"f9edb0a3-325e-47f5-8895-45d2e7e8ceca"]
+}, Open  ]]
+}
+]
+*)
+
+
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 13.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[      6787,        179]
+NotebookOptionsPosition[      6307,        162]
+NotebookOutlinePosition[      6704,        178]
+CellTagsIndexPosition[      6661,        175]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell[BoxData[
+ RowBox[{"Manipulate", "[", 
+  RowBox[{"(*", 
+   RowBox[{
+   "Define", " ", "the", " ", "metric", " ", "pressure", " ", "gradient", " ",
+     "along", " ", "xi"}], "*)"}], 
+  RowBox[{
+   RowBox[{
+    RowBox[{
+     RowBox[{"metricPressure", "[", "xi_", "]"}], ":=", 
+     RowBox[{
+      RowBox[{"earlyInflation", "*", 
+       RowBox[{"Exp", "[", 
+        RowBox[{
+         RowBox[{"-", "decayRate"}], "*", "xi"}], "]"}]}], "+", 
+      "currentAcceleration"}]}], ";", "\[IndentingNewLine]", 
+    RowBox[{"(*", 
+     RowBox[{
+      RowBox[{
+      "Plot", " ", "the", " ", "geometric", " ", "trace", " ", "of", " ", "a",
+        " ", "sub"}], "-", 
+      RowBox[{"luminal", " ", "particle"}]}], "*)"}], 
+    RowBox[{"(*", 
+     RowBox[{
+     "The", " ", "xr", " ", "position", " ", "is", " ", "dragged", " ", 
+      "outward", " ", "by", " ", "the", " ", "xi", " ", "metric", " ", 
+      "pressure"}], "*)"}], 
+    RowBox[{"Plot", "[", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"metricPressure", "[", "xi", "]"}], "*", 
+       RowBox[{"(", 
+        RowBox[{"1", "-", 
+         RowBox[{"beta", "^", "2"}]}], ")"}]}], ",", 
+      RowBox[{"{", 
+       RowBox[{"xi", ",", "0", ",", "10"}], "}"}], ",", 
+      RowBox[{"PlotRange", "->", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{"0", ",", "10"}], "}"}], ",", 
+         RowBox[{"{", 
+          RowBox[{"0", ",", "50"}], "}"}]}], "}"}]}], ",", 
+      RowBox[{"AxesLabel", "->", 
+       RowBox[{"{", 
+        RowBox[{
+        "\"\<Imaginary Inflation Axis (xi)\>\"", ",", 
+         "\"\<Real Sub-luminal Distance (xr)\>\""}], "}"}]}], ",", 
+      RowBox[{"PlotStyle", "->", "Thick"}]}], "]"}]}], ",", 
+   RowBox[{"(*", 
+    RowBox[{"The", " ", "Sliders"}], "*)"}], 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+      "earlyInflation", ",", "10", ",", 
+       "\"\<Early Universe Steepness (A)\>\""}], "}"}], ",", "1", ",", "20"}],
+     "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+      "decayRate", ",", "1", ",", "\"\<Inflation Drop-off Rate (k)\>\""}], 
+      "}"}], ",", "0.1", ",", "5"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+      "currentAcceleration", ",", "2", ",", 
+       "\"\<Present Day Acceleration (\[Lambda])\>\""}], "}"}], ",", "0", ",",
+      "5"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+      "beta", ",", "0.1", ",", "\"\<Particle Velocity (\[Beta] = v/c)\>\""}], 
+      "}"}], ",", "0", ",", "0.999"}], "}"}]}], "]"}]], "Input",
+ CellChangeTimes->{{4.002440943043643*^9, 4.002440943045775*^9}},
+ CellLabel->"In[2]:=",ExpressionUUID->"be370192-f08c-4ed7-82bd-961827fd3190"],
+
+Cell[BoxData[
+ TagBox[
+  StyleBox[
+   DynamicModuleBox[{$CellContext`beta$$ = 
+    0.1, $CellContext`currentAcceleration$$ = 2, $CellContext`decayRate$$ = 
+    1, $CellContext`earlyInflation$$ = 10, Typeset`show$$ = True, 
+    Typeset`bookmarkList$$ = {}, Typeset`bookmarkMode$$ = "Menu", 
+    Typeset`animator$$, Typeset`animvar$$ = 1, Typeset`name$$ = 
+    "\"untitled\"", Typeset`specs$$ = {{{
+       Hold[$CellContext`earlyInflation$$], 10, 
+       "Early Universe Steepness (A)"}, 1, 20}, {{
+       Hold[$CellContext`decayRate$$], 1, "Inflation Drop-off Rate (k)"}, 0.1,
+       5}, {{
+       Hold[$CellContext`currentAcceleration$$], 2, 
+       "Present Day Acceleration (\[Lambda])"}, 0, 5}, {{
+       Hold[$CellContext`beta$$], 0.1, "Particle Velocity (\[Beta] = v/c)"}, 
+      0, 0.999}}, Typeset`size$$ = {360., {66., 70.}}, Typeset`update$$ = 0, 
+    Typeset`initDone$$, Typeset`skipInitDone$$ = True}, 
+    DynamicBox[Manipulate`ManipulateBoxes[
+     1, StandardForm, 
+      "Variables" :> {$CellContext`beta$$ = 
+        0.1, $CellContext`currentAcceleration$$ = 2, $CellContext`decayRate$$ = 
+        1, $CellContext`earlyInflation$$ = 10}, "ControllerVariables" :> {}, 
+      "OtherVariables" :> {
+       Typeset`show$$, Typeset`bookmarkList$$, Typeset`bookmarkMode$$, 
+        Typeset`animator$$, Typeset`animvar$$, Typeset`name$$, 
+        Typeset`specs$$, Typeset`size$$, Typeset`update$$, Typeset`initDone$$,
+         Typeset`skipInitDone$$}, "Body" :> ($CellContext`metricPressure[
+          Pattern[$CellContext`xi$, 
+           Blank[]]] := $CellContext`earlyInflation$$ 
+          Exp[(-$CellContext`decayRate$$) $CellContext`xi$] + \
+$CellContext`currentAcceleration$$; 
+       Plot[$CellContext`metricPressure[$CellContext`xi] (
+          1 - $CellContext`beta$$^2), {$CellContext`xi, 0, 10}, 
+         PlotRange -> {{0, 10}, {0, 50}}, 
+         AxesLabel -> {
+          "Imaginary Inflation Axis (xi)", "Real Sub-luminal Distance (xr)"}, 
+         PlotStyle -> Thick]), 
+      "Specifications" :> {{{$CellContext`earlyInflation$$, 10, 
+          "Early Universe Steepness (A)"}, 1, 
+         20}, {{$CellContext`decayRate$$, 1, "Inflation Drop-off Rate (k)"}, 
+         0.1, 5}, {{$CellContext`currentAcceleration$$, 2, 
+          "Present Day Acceleration (\[Lambda])"}, 0, 
+         5}, {{$CellContext`beta$$, 0.1, "Particle Velocity (\[Beta] = v/c)"},
+          0, 0.999}}, "Options" :> {}, "DefaultOptions" :> {}],
+     ImageSizeCache->{404., {153., 158.}},
+     SingleEvaluation->True],
+    Deinitialization:>None,
+    DynamicModuleValues:>{},
+    SynchronousInitialization->True,
+    UndoTrackedVariables:>{Typeset`show$$, Typeset`bookmarkMode$$},
+    UnsavedVariables:>{Typeset`initDone$$},
+    UntrackedVariables:>{Typeset`size$$}], "Manipulate",
+   Deployed->True,
+   StripOnInput->False],
+  Manipulate`InterpretManipulate[1]]], "Output",
+ CellChangeTimes->{4.002441003853984*^9},
+ CellLabel->"Out[2]=",ExpressionUUID->"c9764e11-5346-4329-a16b-f614226b208a"]
+}, Open  ]]
+},
+WindowSize->{808, 911},
+WindowMargins->{{330, Automatic}, {Automatic, 30}},
+FrontEndVersion->"13.0 for Mac OS X ARM (64-bit) (February 4, 2022)",
+StyleDefinitions->"Default.nb",
+ExpressionUUID->"63995903-b46c-441d-a93e-8962ec944dee"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[580, 22, 2716, 78, 241, "Input",ExpressionUUID->"be370192-f08c-4ed7-82bd-961827fd3190"],
+Cell[3299, 102, 2992, 57, 353, "Output",ExpressionUUID->"c9764e11-5346-4329-a16b-f614226b208a"]
+}, Open  ]]
+}
+]
+*)
+
+
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 13.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[     13806,        344]
+NotebookOptionsPosition[     13324,        327]
+NotebookOutlinePosition[     13721,        343]
+CellTagsIndexPosition[     13678,        340]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell[BoxData[
+ RowBox[{"Manipulate", "[", 
+  RowBox[{
+   RowBox[{"Module", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"tMax", "=", "20"}], ",", "beta", ",", "eqOfMotion", ",", 
+       "solNeutral", ",", "metricPressureFunc", ",", "x", ",", "xi", ",", 
+       "t"}], "}"}], ",", 
+     RowBox[{"(*", 
+      RowBox[{"Normalized", " ", "velocity"}], "*)"}], 
+     RowBox[{
+      RowBox[{
+       RowBox[{"beta", "[", 
+        RowBox[{"xVar_", ",", "xiVar_"}], "]"}], ":=", 
+       RowBox[{
+        RowBox[{"xVar", "'"}], "[", "xiVar", "]"}]}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"(*", 
+       RowBox[{"Dual", "-", 
+        RowBox[{
+        "Node", " ", "Harmonic", " ", "Metric", " ", "Pressure", " ", "using",
+          " ", "a", " ", "distinct", " ", "localized", " ", "function", " ", 
+         "name"}]}], "*)"}], 
+      RowBox[{
+       RowBox[{"metricPressureFunc", "[", "xiVar_", "]"}], ":=", 
+       RowBox[{"baselineExpansion", "+", 
+        RowBox[{"node1Amp", "*", 
+         RowBox[{"Sin", "[", 
+          RowBox[{"freq", "*", "xiVar"}], "]"}]}], "+", 
+        RowBox[{"node2Amp", "*", 
+         RowBox[{"Sin", "[", 
+          RowBox[{
+           RowBox[{"freq", "*", "xiVar"}], "+", "phaseOffset"}], "]"}]}]}]}], 
+      ";", "\[IndentingNewLine]", 
+      RowBox[{"(*", 
+       RowBox[{"Equation", " ", "of", " ", "Motion"}], "*)"}], 
+      RowBox[{"eqOfMotion", "=", 
+       RowBox[{
+        RowBox[{
+         RowBox[{"x", "''"}], "[", "xi", "]"}], "==", 
+        RowBox[{
+         RowBox[{"metricPressureFunc", "[", "xi", "]"}], "-", 
+         RowBox[{"(", 
+          RowBox[{"gForce", "*", 
+           RowBox[{
+            RowBox[{"(", 
+             RowBox[{"1", "+", 
+              RowBox[{
+               RowBox[{"beta", "[", 
+                RowBox[{"x", ",", "xi"}], "]"}], "^", "2"}]}], ")"}], "/", 
+            RowBox[{
+             RowBox[{"x", "[", "xi", "]"}], "^", "2"}]}]}], ")"}]}]}]}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"(*", "Solver", "*)"}], 
+      RowBox[{"solNeutral", "=", 
+       RowBox[{"Quiet", "@", 
+        RowBox[{"NDSolveValue", "[", 
+         RowBox[{
+          RowBox[{"{", 
+           RowBox[{"eqOfMotion", ",", 
+            RowBox[{
+             RowBox[{"x", "[", "0", "]"}], "==", "initialXr"}], ",", 
+            RowBox[{
+             RowBox[{
+              RowBox[{"x", "'"}], "[", "0", "]"}], "==", "initialBeta"}]}], 
+           "}"}], ",", "x", ",", 
+          RowBox[{"{", 
+           RowBox[{"xi", ",", "0", ",", "tMax"}], "}"}]}], "]"}]}]}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"(*", 
+       RowBox[{
+        RowBox[{"Plotting", " ", "the", " ", "dual"}], "-", 
+        RowBox[{
+        "node", " ", "interference", " ", "and", " ", "the", " ", "resulting",
+          " ", "geometric", " ", "trace"}]}], "*)"}], 
+      RowBox[{"(*", 
+       RowBox[{
+       "DO", " ", "NOT", " ", "put", " ", "a", " ", "semicolon", " ", "at", 
+        " ", "the", " ", "end", " ", "of", " ", "this", " ", "Column", " ", 
+        "command"}], "*)"}], 
+      RowBox[{"Column", "[", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"Plot", "[", 
+          RowBox[{
+           RowBox[{"metricPressureFunc", "[", "xi", "]"}], ",", 
+           RowBox[{"{", 
+            RowBox[{"xi", ",", "0", ",", "tMax"}], "}"}], ",", 
+           RowBox[{"PlotStyle", "->", 
+            RowBox[{"Directive", "[", 
+             RowBox[{"Thick", ",", "Purple"}], "]"}]}], ",", 
+           RowBox[{"PlotRange", "->", "All"}], ",", 
+           RowBox[{"Frame", "->", "True"}], ",", 
+           RowBox[{"FrameLabel", "->", 
+            RowBox[{"{", 
+             RowBox[{
+             "\"\<Evolution (xi)\>\"", ",", 
+              "\"\<Net Metric Pressure (dp/dxi)\>\""}], "}"}]}], ",", 
+           RowBox[{
+           "PlotLabel", "->", 
+            "\"\<Coupled Harmonic Expansion (Metastable Plateaus)\>\""}]}], 
+          "]"}], ",", 
+         RowBox[{"Plot", "[", 
+          RowBox[{
+           RowBox[{"solNeutral", "[", "xi", "]"}], ",", 
+           RowBox[{"{", 
+            RowBox[{"xi", ",", "0", ",", "tMax"}], "}"}], ",", 
+           RowBox[{"PlotStyle", "->", 
+            RowBox[{"Directive", "[", 
+             RowBox[{"Thick", ",", "Gray"}], "]"}]}], ",", 
+           RowBox[{"PlotRange", "->", 
+            RowBox[{"{", 
+             RowBox[{
+              RowBox[{"{", 
+               RowBox[{"0", ",", "tMax"}], "}"}], ",", 
+              RowBox[{"{", 
+               RowBox[{"0", ",", 
+                RowBox[{"initialXr", "+", "10"}]}], "}"}]}], "}"}]}], ",", 
+           RowBox[{"Frame", "->", "True"}], ",", 
+           RowBox[{"FrameLabel", "->", 
+            RowBox[{"{", 
+             RowBox[{
+             "\"\<Evolution (xi)\>\"", ",", 
+              "\"\<Real Spatial Distance (xr)\>\""}], "}"}]}], ",", 
+           RowBox[{
+           "PlotLabel", "->", "\"\<Neutral Particle Coordinate Trace\>\""}]}],
+           "]"}]}], "}"}], "]"}]}]}], "]"}], ",", 
+   RowBox[{"(*", 
+    RowBox[{"Harmonic", " ", "Coupling", " ", "Sliders"}], "*)"}], 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+      "baselineExpansion", ",", "0.5", ",", 
+       "\"\<Baseline Expansion (\[Lambda])\>\""}], "}"}], ",", "0", ",", 
+     "2"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+      "node1Amp", ",", "1.0", ",", "\"\<Node 1 Amplitude (Sine Cycle)\>\""}], 
+      "}"}], ",", "0", ",", "3"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+      "node2Amp", ",", "1.0", ",", 
+       "\"\<Node 2 Amplitude (Coupled Cycle)\>\""}], "}"}], ",", "0", ",", 
+     "3"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+      "freq", ",", "1.0", ",", "\"\<Oscillation Frequency (\[Omega])\>\""}], 
+      "}"}], ",", "0.1", ",", "5"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"phaseOffset", ",", 
+       RowBox[{"Pi", "/", "2"}], ",", "\"\<Phase Offset between Nodes\>\""}], 
+      "}"}], ",", "0", ",", 
+     RowBox[{"2", " ", "Pi"}]}], "}"}], ",", 
+   RowBox[{"(*", 
+    RowBox[{"Kinematic", " ", "Sliders"}], "*)"}], 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+      "gForce", ",", "1.0", ",", 
+       "\"\<Base Gravitational Coupling (+mi)\>\""}], "}"}], ",", "0.1", ",", 
+     "5"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+      "initialXr", ",", "2.0", ",", "\"\<Initial Real Distance (xr)\>\""}], 
+      "}"}], ",", "1.0", ",", "5"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+      "initialBeta", ",", "0.0", ",", 
+       "\"\<Initial Relative Velocity (\[Beta])\>\""}], "}"}], ",", 
+     RowBox[{"-", "0.9"}], ",", "0.9"}], "}"}]}], "]"}]], "Input",
+ CellChangeTimes->{{4.0024417970897512`*^9, 4.002441797097237*^9}},
+ CellLabel->"In[3]:=",ExpressionUUID->"13f30337-8ae8-4206-b524-e21fd873b999"],
+
+Cell[BoxData[
+ TagBox[
+  StyleBox[
+   DynamicModuleBox[{$CellContext`baselineExpansion$$ = 
+    0.5, $CellContext`freq$$ = 1., $CellContext`gForce$$ = 
+    1., $CellContext`initialBeta$$ = 0., $CellContext`initialXr$$ = 
+    2., $CellContext`node1Amp$$ = 1., $CellContext`node2Amp$$ = 
+    1., $CellContext`phaseOffset$$ = Rational[1, 2] Pi, Typeset`show$$ = True,
+     Typeset`bookmarkList$$ = {}, Typeset`bookmarkMode$$ = "Menu", 
+    Typeset`animator$$, Typeset`animvar$$ = 1, Typeset`name$$ = 
+    "\"untitled\"", Typeset`specs$$ = {{{
+       Hold[$CellContext`baselineExpansion$$], 0.5, 
+       "Baseline Expansion (\[Lambda])"}, 0, 2}, {{
+       Hold[$CellContext`node1Amp$$], 1., "Node 1 Amplitude (Sine Cycle)"}, 0,
+       3}, {{
+       Hold[$CellContext`node2Amp$$], 1., "Node 2 Amplitude (Coupled Cycle)"},
+       0, 3}, {{
+       Hold[$CellContext`freq$$], 1., "Oscillation Frequency (\[Omega])"}, 
+      0.1, 5}, {{
+       Hold[$CellContext`phaseOffset$$], Rational[1, 2] Pi, 
+       "Phase Offset between Nodes"}, 0, 2 Pi}, {{
+       Hold[$CellContext`gForce$$], 1., "Base Gravitational Coupling (+mi)"}, 
+      0.1, 5}, {{
+       Hold[$CellContext`initialXr$$], 2., "Initial Real Distance (xr)"}, 1., 
+      5}, {{
+       Hold[$CellContext`initialBeta$$], 0., 
+       "Initial Relative Velocity (\[Beta])"}, -0.9, 0.9}}, Typeset`size$$ = {
+    180., {147.134033203125, 152.865966796875}}, Typeset`update$$ = 0, 
+    Typeset`initDone$$, Typeset`skipInitDone$$ = True}, 
+    DynamicBox[Manipulate`ManipulateBoxes[
+     1, StandardForm, 
+      "Variables" :> {$CellContext`baselineExpansion$$ = 
+        0.5, $CellContext`freq$$ = 1., $CellContext`gForce$$ = 
+        1., $CellContext`initialBeta$$ = 0., $CellContext`initialXr$$ = 
+        2., $CellContext`node1Amp$$ = 1., $CellContext`node2Amp$$ = 
+        1., $CellContext`phaseOffset$$ = Rational[1, 2] Pi}, 
+      "ControllerVariables" :> {}, 
+      "OtherVariables" :> {
+       Typeset`show$$, Typeset`bookmarkList$$, Typeset`bookmarkMode$$, 
+        Typeset`animator$$, Typeset`animvar$$, Typeset`name$$, 
+        Typeset`specs$$, Typeset`size$$, Typeset`update$$, Typeset`initDone$$,
+         Typeset`skipInitDone$$}, "Body" :> 
+      Module[{$CellContext`tMax$ = 
+         20, $CellContext`beta$, $CellContext`eqOfMotion$, \
+$CellContext`solNeutral$, $CellContext`metricPressureFunc$, $CellContext`x$, \
+$CellContext`xi$, $CellContext`t$}, $CellContext`beta$[
+           Pattern[$CellContext`xVar, 
+            Blank[]], 
+           Pattern[$CellContext`xiVar, 
+            Blank[]]] := 
+         Derivative[
+          1][$CellContext`xVar][$CellContext`xiVar]; \
+$CellContext`metricPressureFunc$[
+           Pattern[$CellContext`xiVar$, 
+            
+            Blank[]]] := $CellContext`baselineExpansion$$ + \
+$CellContext`node1Amp$$ 
+           Sin[$CellContext`freq$$ $CellContext`xiVar$] + \
+$CellContext`node2Amp$$ 
+           Sin[$CellContext`freq$$ $CellContext`xiVar$ + \
+$CellContext`phaseOffset$$]; $CellContext`eqOfMotion$ = 
+         Derivative[
+           2][$CellContext`x$][$CellContext`xi$] == \
+$CellContext`metricPressureFunc$[$CellContext`xi$] - $CellContext`gForce$$ ((
+             1 + $CellContext`beta$[$CellContext`x$, \
+$CellContext`xi$]^2)/$CellContext`x$[$CellContext`xi$]^2); \
+$CellContext`solNeutral$ = Quiet[
+           
+           NDSolveValue[{$CellContext`eqOfMotion$, $CellContext`x$[
+              0] == $CellContext`initialXr$$, 
+             Derivative[1][$CellContext`x$][
+              0] == $CellContext`initialBeta$$}, $CellContext`x$, \
+{$CellContext`xi$, 0, $CellContext`tMax$}]]; Column[{
+           Plot[
+            $CellContext`metricPressureFunc$[$CellContext`xi$], \
+{$CellContext`xi$, 0, $CellContext`tMax$}, PlotStyle -> 
+            Directive[Thick, Purple], PlotRange -> All, Frame -> True, 
+            FrameLabel -> {"Evolution (xi)", "Net Metric Pressure (dp/dxi)"}, 
+            PlotLabel -> "Coupled Harmonic Expansion (Metastable Plateaus)"], 
+           
+           Plot[
+            $CellContext`solNeutral$[$CellContext`xi$], {$CellContext`xi$, 
+             0, $CellContext`tMax$}, PlotStyle -> Directive[Thick, Gray], 
+            PlotRange -> {{0, $CellContext`tMax$}, {
+              0, $CellContext`initialXr$$ + 10}}, Frame -> True, 
+            FrameLabel -> {"Evolution (xi)", "Real Spatial Distance (xr)"}, 
+            PlotLabel -> "Neutral Particle Coordinate Trace"]}]], 
+      "Specifications" :> {{{$CellContext`baselineExpansion$$, 0.5, 
+          "Baseline Expansion (\[Lambda])"}, 0, 
+         2}, {{$CellContext`node1Amp$$, 1., "Node 1 Amplitude (Sine Cycle)"}, 
+         0, 3}, {{$CellContext`node2Amp$$, 1., 
+          "Node 2 Amplitude (Coupled Cycle)"}, 0, 
+         3}, {{$CellContext`freq$$, 1., "Oscillation Frequency (\[Omega])"}, 
+         0.1, 5}, {{$CellContext`phaseOffset$$, Rational[1, 2] Pi, 
+          "Phase Offset between Nodes"}, 0, 2 
+         Pi}, {{$CellContext`gForce$$, 1., 
+          "Base Gravitational Coupling (+mi)"}, 0.1, 
+         5}, {{$CellContext`initialXr$$, 2., "Initial Real Distance (xr)"}, 
+         1., 5}, {{$CellContext`initialBeta$$, 0., 
+          "Initial Relative Velocity (\[Beta])"}, -0.9, 0.9}}, 
+      "Options" :> {}, "DefaultOptions" :> {}],
+     ImageSizeCache->{595., {177., 183.}},
+     SingleEvaluation->True],
+    Deinitialization:>None,
+    DynamicModuleValues:>{},
+    SynchronousInitialization->True,
+    UndoTrackedVariables:>{Typeset`show$$, Typeset`bookmarkMode$$},
+    UnsavedVariables:>{Typeset`initDone$$},
+    UntrackedVariables:>{Typeset`size$$}], "Manipulate",
+   Deployed->True,
+   StripOnInput->False],
+  Manipulate`InterpretManipulate[1]]], "Output",
+ CellChangeTimes->{4.002441800702285*^9},
+ CellLabel->"Out[3]=",ExpressionUUID->"18c34517-52fb-46a4-a371-76a06dd3fb59"]
+}, Open  ]]
+},
+WindowSize->{808, 911},
+WindowMargins->{{154, Automatic}, {Automatic, 50}},
+FrontEndVersion->"13.0 for Mac OS X ARM (64-bit) (February 4, 2022)",
+StyleDefinitions->"Default.nb",
+ExpressionUUID->"f0a953e1-8e5f-4449-baa3-c0df3db63d71"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[580, 22, 6928, 187, 598, "Input",ExpressionUUID->"13f30337-8ae8-4206-b524-e21fd873b999"],
+Cell[7511, 211, 5797, 113, 402, "Output",ExpressionUUID->"18c34517-52fb-46a4-a371-76a06dd3fb59"]
+}, Open  ]]
+}
+]
+*)
+
+(* End of internal cache information *)
+
+
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 13.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[     16526,        407]
+NotebookOptionsPosition[     16048,        390]
+NotebookOutlinePosition[     16440,        406]
+CellTagsIndexPosition[     16397,        403]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", 
+   RowBox[{"phase_kinetics", ".", 
+    RowBox[{"m", ":", 
+     RowBox[{
+      RowBox[{"SO", 
+       RowBox[{"(", 
+        RowBox[{"4", ",", "4"}], ")"}], " ", "Feynman", " ", "Coordinate", " ",
+        "Trace", " ", "Sub"}], "-", "routine"}]}]}], "*)"}], 
+  RowBox[{"Manipulate", "[", 
+   RowBox[{
+    RowBox[{"Module", "[", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"tMax", "=", "10"}], ",", "beta", ",", "eqOfMotion", ",", 
+        "solNeutral", ",", "solLike", ",", "solOpposite", ",", "x", ",", "xi",
+         ",", "t"}], "}"}], ",", 
+      RowBox[{"(*", 
+       RowBox[{
+        RowBox[{"Normalized", " ", 
+         RowBox[{"velocity", ":", "beta"}]}], "=", 
+        RowBox[{
+         RowBox[{
+          RowBox[{"v", "/", 
+           RowBox[{"c", ".", "Using"}]}], " ", "c"}], "=", 
+         RowBox[{
+         "1", " ", "for", " ", "the", " ", "coordinate", " ", "trace"}]}]}], 
+       "*)"}], 
+      RowBox[{
+       RowBox[{
+        RowBox[{"beta", "[", 
+         RowBox[{"x_", ",", "xi_"}], "]"}], ":=", 
+        RowBox[{
+         RowBox[{"x", "'"}], "[", "xi", "]"}]}], ";", "\[IndentingNewLine]", 
+       RowBox[{"(*", 
+        RowBox[{
+         RowBox[{
+         "Equation", " ", "of", " ", "Motion", " ", "in", " ", "the", " ", 
+          "xr", " ", 
+          RowBox[{"(", "Real", ")"}], " ", 
+          RowBox[{"plane", ".", "Acceleration"}]}], "=", 
+         RowBox[{
+          RowBox[{"(", 
+           RowBox[{"Background", " ", "Metric", " ", "Expansion"}], ")"}], "-", 
+          RowBox[{"(", 
+           RowBox[{"Gravity", "*", 
+            RowBox[{"(", 
+             RowBox[{"1", "+", 
+              RowBox[{"beta", "^", "2"}]}], ")"}]}], ")"}], "+", 
+          RowBox[{"(", 
+           RowBox[{"Electric", "*", "ChargeSign", "*", 
+            RowBox[{"(", 
+             RowBox[{"1", "-", 
+              RowBox[{"beta", "^", "2"}]}], ")"}]}], ")"}]}]}], "*)"}], 
+       RowBox[{
+        RowBox[{"eqOfMotion", "[", "chargeSign_", "]"}], ":=", 
+        RowBox[{
+         RowBox[{
+          RowBox[{"x", "''"}], "[", "xi", "]"}], "==", 
+         RowBox[{"metricPressure", "-", 
+          RowBox[{"(", 
+           RowBox[{"gForce", "*", 
+            RowBox[{
+             RowBox[{"(", 
+              RowBox[{"1", "+", 
+               RowBox[{
+                RowBox[{"beta", "[", 
+                 RowBox[{"x", ",", "xi"}], "]"}], "^", "2"}]}], ")"}], "/", 
+             RowBox[{
+              RowBox[{"x", "[", "xi", "]"}], "^", "2"}]}]}], ")"}], "+", 
+          RowBox[{"(", 
+           RowBox[{"chargeSign", "*", "eForce", "*", 
+            RowBox[{
+             RowBox[{"(", 
+              RowBox[{"1", "-", 
+               RowBox[{
+                RowBox[{"beta", "[", 
+                 RowBox[{"x", ",", "xi"}], "]"}], "^", "2"}]}], ")"}], "/", 
+             RowBox[{
+              RowBox[{"x", "[", "xi", "]"}], "^", "2"}]}]}], ")"}]}]}]}], ";",
+        "\[IndentingNewLine]", 
+       RowBox[{"(*", 
+        RowBox[{"1.", " ", "Neutral", " ", "Particles", " ", 
+         RowBox[{"(", 
+          RowBox[{
+           RowBox[{"Gravity", " ", "Only"}], ",", 
+           RowBox[{"ChargeSign", "=", "0"}]}], ")"}]}], "*)"}], 
+       RowBox[{"solNeutral", "=", 
+        RowBox[{"Quiet", "@", 
+         RowBox[{"NDSolveValue", "[", 
+          RowBox[{
+           RowBox[{"{", 
+            RowBox[{
+             RowBox[{"eqOfMotion", "[", "0", "]"}], ",", 
+             RowBox[{
+              RowBox[{"x", "[", "0", "]"}], "==", "initialXr"}], ",", 
+             RowBox[{
+              RowBox[{
+               RowBox[{"x", "'"}], "[", "0", "]"}], "==", "initialBeta"}]}], 
+            "}"}], ",", "x", ",", 
+           RowBox[{"{", 
+            RowBox[{"xi", ",", "0", ",", "tMax"}], "}"}]}], "]"}]}]}], ";", 
+       "\[IndentingNewLine]", 
+       RowBox[{"(*", 
+        RowBox[{"2.", " ", "Like", " ", "Charges", " ", 
+         RowBox[{"(", 
+          RowBox[{"Repulsive", ",", 
+           RowBox[{"ChargeSign", "=", 
+            RowBox[{"+", "1"}]}]}], ")"}]}], "*)"}], 
+       RowBox[{"solLike", "=", 
+        RowBox[{"Quiet", "@", 
+         RowBox[{"NDSolveValue", "[", 
+          RowBox[{
+           RowBox[{"{", 
+            RowBox[{
+             RowBox[{"eqOfMotion", "[", "1", "]"}], ",", 
+             RowBox[{
+              RowBox[{"x", "[", "0", "]"}], "==", "initialXr"}], ",", 
+             RowBox[{
+              RowBox[{
+               RowBox[{"x", "'"}], "[", "0", "]"}], "==", "initialBeta"}]}], 
+            "}"}], ",", "x", ",", 
+           RowBox[{"{", 
+            RowBox[{"xi", ",", "0", ",", "tMax"}], "}"}]}], "]"}]}]}], ";", 
+       "\[IndentingNewLine]", 
+       RowBox[{"(*", 
+        RowBox[{
+         RowBox[{"3.", " ", "Opposite", " ", "Charges", " ", 
+          RowBox[{"(", 
+           RowBox[{"Attractive", ",", 
+            RowBox[{"ChargeSign", "=", 
+             RowBox[{"-", "1"}]}]}], ")"}], " ", "Includes", " ", "a", " ", 
+          "WhenEvent", " ", "to", " ", "terminate", " ", "the", " ", "trace", 
+          " ", "exactly", " ", "when", " ", "xr"}], "->", 
+         RowBox[{"0", " ", 
+          RowBox[{"(", 
+           RowBox[{
+           "The", " ", "2", "D", " ", "superposition", " ", "boundary", " ", 
+            "collapse"}], ")"}]}]}], "*)"}], 
+       RowBox[{"solOpposite", "=", 
+        RowBox[{"Quiet", "@", 
+         RowBox[{"NDSolveValue", "[", 
+          RowBox[{
+           RowBox[{"{", 
+            RowBox[{
+             RowBox[{"eqOfMotion", "[", 
+              RowBox[{"-", "1"}], "]"}], ",", 
+             RowBox[{
+              RowBox[{"x", "[", "0", "]"}], "==", "initialXr"}], ",", 
+             RowBox[{
+              RowBox[{
+               RowBox[{"x", "'"}], "[", "0", "]"}], "==", "initialBeta"}], ",", 
+             RowBox[{"WhenEvent", "[", 
+              RowBox[{
+               RowBox[{
+                RowBox[{"x", "[", "xi", "]"}], "<=", "0.01"}], 
+               ",", "\"\<StopIntegration\>\""}], "]"}]}], "}"}], ",", "x", ",", 
+           RowBox[{"{", 
+            RowBox[{"xi", ",", "0", ",", "tMax"}], "}"}]}], "]"}]}]}], ";", 
+       "\[IndentingNewLine]", 
+       RowBox[{"(*", 
+        RowBox[{
+         RowBox[{"Plotting", " ", "the", " ", "Feynman"}], "-", 
+         RowBox[{"style", " ", "coordinate", " ", "traces"}]}], "*)"}], 
+       RowBox[{"Plot", "[", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{
+           RowBox[{"solNeutral", "[", "xi", "]"}], ",", 
+           RowBox[{"solLike", "[", "xi", "]"}], ",", 
+           RowBox[{"solOpposite", "[", "xi", "]"}]}], "}"}], ",", 
+         RowBox[{"{", 
+          RowBox[{"xi", ",", "0", ",", "tMax"}], "}"}], ",", 
+         RowBox[{"PlotStyle", "->", 
+          RowBox[{"{", 
+           RowBox[{
+            RowBox[{"Directive", "[", 
+             RowBox[{"Thick", ",", "Gray"}], "]"}], ",", 
+            RowBox[{"Directive", "[", 
+             RowBox[{"Thick", ",", "Red", ",", "Dashed"}], "]"}], ",", 
+            RowBox[{"Directive", "[", 
+             RowBox[{"Thick", ",", "Blue", ",", "Dotted"}], "]"}]}], "}"}]}], 
+         ",", 
+         RowBox[{"PlotRange", "->", 
+          RowBox[{"{", 
+           RowBox[{
+            RowBox[{"{", 
+             RowBox[{"0", ",", "tMax"}], "}"}], ",", 
+            RowBox[{"{", 
+             RowBox[{"0", ",", 
+              RowBox[{"initialXr", "+", "5"}]}], "}"}]}], "}"}]}], ",", 
+         RowBox[{"AxesOrigin", "->", 
+          RowBox[{"{", 
+           RowBox[{"0", ",", "0"}], "}"}]}], ",", 
+         RowBox[{"Frame", "->", "True"}], ",", 
+         RowBox[{"FrameLabel", "->", 
+          RowBox[{"{", 
+           
+           RowBox[{"\"\<Imaginary Axis / Evolution (xi)\>\"", 
+            ",", "\"\<Real Spatial Distance (xr)\>\""}], "}"}]}], ",", 
+         RowBox[{"PlotLegends", "->", 
+          RowBox[{"{", 
+           
+           RowBox[{"\"\<Neutral (Gravity Only)\>\"", 
+            ",", "\"\<Like Charges (Repulsion)\>\"", 
+            ",", "\"\<Opposite Charges (Attraction)\>\""}], "}"}]}], ",", 
+         RowBox[{
+         "PlotLabel", 
+          "->", "\"\<SO(4,4) Bipartite Trajectories: (1-\[Beta]^2) and (1+\
+\[Beta]^2) Coupling\>\""}]}], "]"}]}]}], "]"}], ",", 
+    RowBox[{"(*", 
+     RowBox[{"Simulation", " ", "Sliders"}], "*)"}], 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{
+       "metricPressure", ",", "0.5", 
+        ",", "\"\<Background Metric Expansion (dp/dxi)\>\""}], "}"}], ",", 
+      "0", ",", "2"}], "}"}], ",", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{
+       "gForce", ",", "1.0", 
+        ",", "\"\<Base Gravitational Coupling (+mi)\>\""}], "}"}], ",", "0", ",",
+       "5"}], "}"}], ",", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{"eForce", ",", "3.0", ",", "\"\<Base Electric Coupling\>\""}], 
+       "}"}], ",", "0", ",", "10"}], "}"}], ",", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{
+       "initialXr", ",", "2.0", ",", "\"\<Initial Real Distance (xr)\>\""}], 
+       "}"}], ",", "0.5", ",", "5"}], "}"}], ",", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{
+       "initialBeta", ",", "0.0", 
+        ",", "\"\<Initial Relative Velocity (\[Beta])\>\""}], "}"}], ",", 
+      RowBox[{"-", "0.9"}], ",", "0.9"}], "}"}]}], "]"}]}]], "Input",
+ CellChangeTimes->{{4.002442183511207*^9, 4.0024421835131817`*^9}, 
+   4.002442261573431*^9},
+ CellLabel->"In[1]:=",ExpressionUUID->"e7240046-3d72-4f5b-8586-e000dbe2c760"],
+
+Cell[BoxData[
+ TagBox[
+  StyleBox[
+   DynamicModuleBox[{$CellContext`eForce$$ = 3.1, $CellContext`gForce$$ = 
+    1.96, $CellContext`initialBeta$$ = 0., $CellContext`initialXr$$ = 
+    2., $CellContext`metricPressure$$ = 0.5, Typeset`show$$ = True, 
+    Typeset`bookmarkList$$ = {}, Typeset`bookmarkMode$$ = "Menu", 
+    Typeset`animator$$, Typeset`animvar$$ = 1, Typeset`name$$ = 
+    "\"untitled\"", Typeset`specs$$ = {{{
+       Hold[$CellContext`metricPressure$$], 0.5, 
+       "Background Metric Expansion (dp/dxi)"}, 0, 2, ControlType -> 
+      Manipulator}, {{
+       Hold[$CellContext`gForce$$], 1., "Base Gravitational Coupling (+mi)"}, 
+      0, 5, ControlType -> Manipulator}, {{
+       Hold[$CellContext`eForce$$], 3., "Base Electric Coupling"}, 0, 10, 
+      ControlType -> Manipulator}, {{
+       Hold[$CellContext`initialXr$$], 2., "Initial Real Distance (xr)"}, 0.5,
+       5, ControlType -> Manipulator}, {{
+       Hold[$CellContext`initialBeta$$], 0., 
+       "Initial Relative Velocity (\[Beta])"}, -0.9, 0.9, ControlType -> 
+      Manipulator}}, Typeset`size$$ = {
+    593.6833984374999, {124.06844023671985`, 129.80037383046982`}}, 
+    Typeset`update$$ = 0, Typeset`initDone$$, Typeset`skipInitDone$$ = True, 
+    Typeset`keyframeActionsQ$$ = False, Typeset`keyframeList$$ = {}}, 
+    DynamicBox[Manipulate`ManipulateBoxes[
+     1, StandardForm, 
+      "Variables" :> {$CellContext`eForce$$ = 3., $CellContext`gForce$$ = 
+        1., $CellContext`initialBeta$$ = 0., $CellContext`initialXr$$ = 
+        2., $CellContext`metricPressure$$ = 0.5}, "ControllerVariables" :> {},
+       "OtherVariables" :> {
+       Typeset`show$$, Typeset`bookmarkList$$, Typeset`bookmarkMode$$, 
+        Typeset`animator$$, Typeset`animvar$$, Typeset`name$$, 
+        Typeset`specs$$, Typeset`size$$, Typeset`update$$, Typeset`initDone$$,
+         Typeset`skipInitDone$$, Typeset`keyframeActionsQ$$, 
+        Typeset`keyframeList$$}, "Body" :> 
+      Module[{$CellContext`tMax$ = 
+         10, $CellContext`beta$, $CellContext`eqOfMotion$, \
+$CellContext`solNeutral$, $CellContext`solLike$, $CellContext`solOpposite$, \
+$CellContext`x$, $CellContext`xi$, $CellContext`t$}, $CellContext`beta$[
+           Pattern[$CellContext`x, 
+            Blank[]], 
+           Pattern[$CellContext`xi, 
+            Blank[]]] := 
+         Derivative[
+          1][$CellContext`x][$CellContext`xi]; $CellContext`eqOfMotion$[
+           Pattern[$CellContext`chargeSign$, 
+            Blank[]]] := 
+         Derivative[
+           2][$CellContext`x$][$CellContext`xi$] == \
+$CellContext`metricPressure$$ - $CellContext`gForce$$ ((
+             1 + $CellContext`beta$[$CellContext`x$, \
+$CellContext`xi$]^2)/$CellContext`x$[$CellContext`xi$]^2) + \
+$CellContext`chargeSign$ $CellContext`eForce$$ ((
+              1 - $CellContext`beta$[$CellContext`x$, \
+$CellContext`xi$]^2)/$CellContext`x$[$CellContext`xi$]^2); \
+$CellContext`solNeutral$ = Quiet[
+           NDSolveValue[{
+             $CellContext`eqOfMotion$[
+             0], $CellContext`x$[0] == $CellContext`initialXr$$, 
+             Derivative[1][$CellContext`x$][
+              0] == $CellContext`initialBeta$$}, $CellContext`x$, \
+{$CellContext`xi$, 0, $CellContext`tMax$}]]; $CellContext`solLike$ = Quiet[
+           NDSolveValue[{
+             $CellContext`eqOfMotion$[
+             1], $CellContext`x$[0] == $CellContext`initialXr$$, 
+             Derivative[1][$CellContext`x$][
+              0] == $CellContext`initialBeta$$}, $CellContext`x$, \
+{$CellContext`xi$, 0, $CellContext`tMax$}]]; $CellContext`solOpposite$ = Quiet[
+           NDSolveValue[{
+             $CellContext`eqOfMotion$[-1], $CellContext`x$[
+              0] == $CellContext`initialXr$$, 
+             Derivative[1][$CellContext`x$][0] == $CellContext`initialBeta$$, 
+             
+             
+             WhenEvent[$CellContext`x$[$CellContext`xi$] <= 0.01, 
+              "StopIntegration"]}, $CellContext`x$, {$CellContext`xi$, 
+             0, $CellContext`tMax$}]]; Plot[{
+           $CellContext`solNeutral$[$CellContext`xi$], 
+           $CellContext`solLike$[$CellContext`xi$], 
+           $CellContext`solOpposite$[$CellContext`xi$]}, {$CellContext`xi$, 
+           0, $CellContext`tMax$}, PlotStyle -> {
+            Directive[Thick, Gray], 
+            Directive[Thick, Red, Dashed], 
+            Directive[Thick, Blue, Dotted]}, 
+          PlotRange -> {{0, $CellContext`tMax$}, {
+            0, $CellContext`initialXr$$ + 5}}, AxesOrigin -> {0, 0}, Frame -> 
+          True, FrameLabel -> {
+           "Imaginary Axis / Evolution (xi)", "Real Spatial Distance (xr)"}, 
+          PlotLegends -> {
+           "Neutral (Gravity Only)", "Like Charges (Repulsion)", 
+            "Opposite Charges (Attraction)"}, PlotLabel -> 
+          "SO(4,4) Bipartite Trajectories: (1-\[Beta]^2) and (1+\[Beta]^2) \
+Coupling"]], 
+      "Specifications" :> {{{$CellContext`metricPressure$$, 0.5, 
+          "Background Metric Expansion (dp/dxi)"}, 0, 
+         2}, {{$CellContext`gForce$$, 1., 
+          "Base Gravitational Coupling (+mi)"}, 0, 
+         5}, {{$CellContext`eForce$$, 3., "Base Electric Coupling"}, 0, 
+         10}, {{$CellContext`initialXr$$, 2., "Initial Real Distance (xr)"}, 
+         0.5, 5}, {{$CellContext`initialBeta$$, 0., 
+          "Initial Relative Velocity (\[Beta])"}, -0.9, 0.9}}, 
+      "Options" :> {}, "DefaultOptions" :> {}],
+     ImageSizeCache->{
+      642.7833984374998, {230.9388656517589, 236.6707992455089}},
+     SingleEvaluation->True],
+    Deinitialization:>None,
+    DynamicModuleValues:>{},
+    SynchronousInitialization->True,
+    UndoTrackedVariables:>{Typeset`show$$, Typeset`bookmarkMode$$},
+    UnsavedVariables:>{Typeset`initDone$$},
+    UntrackedVariables:>{Typeset`size$$}], "Manipulate",
+   Deployed->True,
+   StripOnInput->False],
+  Manipulate`InterpretManipulate[1]]], "Output",
+ CellChangeTimes->{4.002442312842237*^9, 4.00244236927868*^9},
+ CellLabel->"Out[1]=",ExpressionUUID->"ea51f177-c69a-4f74-ab2d-6d5181973a91"]
+}, Open  ]]
+},
+WindowSize->{808, 911},
+WindowMargins->{{126, Automatic}, {6, Automatic}},
+FrontEndVersion->"14.3 for Mac OS X ARM (64-bit) (July 8, 2025)",
+StyleDefinitions->"Default.nb",
+ExpressionUUID->"dea1ceb7-475b-46d8-a74d-167544ce3e3c"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[580, 22, 9455, 248, 723, "Input",ExpressionUUID->"e7240046-3d72-4f5b-8586-e000dbe2c760"],
+Cell[10038, 272, 5994, 115, 503, "Output",ExpressionUUID->"ea51f177-c69a-4f74-ab2d-6d5181973a91"]
+}, Open  ]]
+}
+]
+*)
+
+
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 13.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[      7714,        230]
+NotebookOptionsPosition[      7143,        212]
+NotebookOutlinePosition[      7540,        228]
+CellTagsIndexPosition[      7497,        225]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{
+   RowBox[{"ClearAll", "[", 
+    RowBox[{
+    "t", ",", "a", ",", "rho", ",", "zKin", ",", "zGrav", ",", "zTotal", ",", 
+     "plotRedshift", ",", "plotDensity", ",", "combinedPlot"}], "]"}], ";"}], 
+  "\[IndentingNewLine]", "\n", 
+  RowBox[{"(*", 
+   RowBox[{
+   "1.", " ", "Lock", " ", "in", " ", "the", " ", "Static", " ", 
+    "Parameters"}], "*)"}]}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"lookbackMax", "=", "13.9"}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"kinematicH", "=", "0.0"}], ";", 
+  RowBox[{"(*", 
+   RowBox[{
+   "Set", " ", "to", " ", "zero", " ", "to", " ", "isolate", " ", "the", " ", 
+    "gravitational", " ", "effect"}], "*)"}], 
+  RowBox[{"pastDensity", "=", "8.0"}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"presentDensity", "=", "0.5"}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"densityDecay", "=", "0.3"}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"gravCoupling", "=", "0.05"}], ";"}], "\[IndentingNewLine]", "\n", 
+  
+  RowBox[{"(*", 
+   RowBox[{"2.", " ", "Define", " ", "the", " ", "Functions"}], 
+   "*)"}]}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"a", "[", "t_", "]"}], ":=", 
+   RowBox[{"Exp", "[", 
+    RowBox[{"kinematicH", "*", "t"}], "]"}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"rho", "[", "t_", "]"}], ":=", 
+   RowBox[{"presentDensity", "+", 
+    RowBox[{
+     RowBox[{"(", 
+      RowBox[{"pastDensity", "-", "presentDensity"}], ")"}], "*", 
+     RowBox[{"Exp", "[", 
+      RowBox[{
+       RowBox[{"-", "densityDecay"}], "*", 
+       RowBox[{"(", 
+        RowBox[{"lookbackMax", "-", "t"}], ")"}]}], "]"}]}]}]}], 
+  ";"}], "\n", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"zKin", "[", "t_", "]"}], ":=", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"a", "[", "lookbackMax", "]"}], "/", 
+     RowBox[{"a", "[", 
+      RowBox[{"lookbackMax", "-", "t"}], "]"}]}], "-", "1"}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"zGrav", "[", "t_", "]"}], ":=", 
+   RowBox[{"gravCoupling", "*", 
+    RowBox[{"Integrate", "[", 
+     RowBox[{
+      RowBox[{"rho", "[", "tau", "]"}], ",", 
+      RowBox[{"{", 
+       RowBox[{"tau", ",", 
+        RowBox[{"lookbackMax", "-", "t"}], ",", "lookbackMax"}], "}"}]}], 
+     "]"}]}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{
+   RowBox[{
+    RowBox[{"zTotal", "[", "t_", "]"}], ":=", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"(", 
+       RowBox[{"1", "+", 
+        RowBox[{"zKin", "[", "t", "]"}]}], ")"}], "*", 
+      RowBox[{"(", 
+       RowBox[{"1", "+", 
+        RowBox[{"zGrav", "[", "t", "]"}]}], ")"}]}], "-", "1"}]}], ";"}], 
+  "\[IndentingNewLine]", "\n", 
+  RowBox[{"(*", 
+   RowBox[{
+   "3.", " ", "Generate", " ", "the", " ", "Individual", " ", "Plots"}], 
+   "*)"}]}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"plotRedshift", "=", 
+    RowBox[{"Plot", "[", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"zKin", "[", "t", "]"}], ",", 
+        RowBox[{"zGrav", "[", "t", "]"}], ",", 
+        RowBox[{"zTotal", "[", "t", "]"}]}], "}"}], ",", 
+      RowBox[{"{", 
+       RowBox[{"t", ",", "0", ",", "lookbackMax"}], "}"}], ",", 
+      RowBox[{"PlotStyle", "->", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"Directive", "[", 
+          RowBox[{"Thick", ",", "Black", ",", "Dashed"}], "]"}], ",", 
+         RowBox[{"Directive", "[", 
+          RowBox[{"Thick", ",", 
+           RowBox[{"GrayLevel", "[", "0.4", "]"}], ",", "Dotted"}], "]"}], 
+         ",", 
+         RowBox[{"Directive", "[", 
+          RowBox[{"Thick", ",", "Black"}], "]"}]}], "}"}]}], ",", 
+      RowBox[{"PlotRange", "->", "All"}], ",", 
+      RowBox[{"Frame", "->", "True"}], ",", 
+      RowBox[{"FrameLabel", "->", 
+       RowBox[{"{", 
+        RowBox[{
+        "\"\<Lookback Distance (BLY)\>\"", ",", 
+         "\"\<Observed Redshift (z)\>\""}], "}"}]}], ",", 
+      RowBox[{"PlotLegends", "->", 
+       RowBox[{"{", 
+        RowBox[{
+        "\"\<z (Kinematic)\>\"", ",", "\"\<z (Gravitational Lag)\>\"", ",", 
+         "\"\<z (Total Observed)\>\""}], "}"}]}], ",", 
+      RowBox[{
+      "PlotLabel", "->", 
+       "\"\<Compound Redshift: Decoupling Physical Expansion from Density Lag\
+\>\""}], ",", 
+      RowBox[{"ImageSize", "->", "600"}]}], "]"}]}], ";"}], 
+  "\n"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"plotDensity", "=", 
+    RowBox[{"Plot", "[", 
+     RowBox[{
+      RowBox[{"rho", "[", "t", "]"}], ",", 
+      RowBox[{"{", 
+       RowBox[{"t", ",", "0", ",", "lookbackMax"}], "}"}], ",", 
+      RowBox[{"PlotStyle", "->", 
+       RowBox[{"Directive", "[", 
+        RowBox[{"Thick", ",", "Black"}], "]"}]}], ",", 
+      RowBox[{"PlotRange", "->", 
+       RowBox[{"{", 
+        RowBox[{"0", ",", 
+         RowBox[{"pastDensity", "+", "1"}]}], "}"}]}], ",", 
+      RowBox[{"Filling", "->", "Axis"}], ",", 
+      RowBox[{"FillingStyle", "->", 
+       RowBox[{"Directive", "[", 
+        RowBox[{"Gray", ",", 
+         RowBox[{"Opacity", "[", "0.2", "]"}]}], "]"}]}], ",", 
+      RowBox[{"Frame", "->", "True"}], ",", 
+      RowBox[{"FrameLabel", "->", 
+       RowBox[{"{", 
+        RowBox[{
+        "\"\<Lookback Distance (BLY)\>\"", ",", 
+         "\"\<Effective Mass Density of Shells\>\""}], "}"}]}], ",", 
+      RowBox[{
+      "PlotLabel", "->", 
+       "\"\<Pound-Rebka Asymmetry: The Retarded Density Drop-Off\>\""}], ",", 
+      
+      RowBox[{"ImageSize", "->", "600"}]}], "]"}]}], ";"}], 
+  "\[IndentingNewLine]", "\n", 
+  RowBox[{"(*", 
+   RowBox[{
+   "4.", " ", "Combine", " ", "and", " ", "Export", " ", "as", " ", "a", " ", 
+    "Vector", " ", "PDF"}], "*)"}]}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"combinedPlot", "=", 
+    RowBox[{"GraphicsColumn", "[", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{"plotRedshift", ",", "plotDensity"}], "}"}], ",", 
+      RowBox[{"ImageSize", "->", "650"}]}], "]"}]}], ";"}], 
+  "\n"}], "\[IndentingNewLine]", 
+ RowBox[{"Export", "[", 
+  RowBox[{
+  "\"\<pound_rebka_asymmetry.pdf\>\"", ",", "combinedPlot", ",", 
+   "\"\<PDF\>\""}], "]"}]}], "Input",
+ CellChangeTimes->{{4.002529632628603*^9, 4.002529632630135*^9}},
+ CellLabel->"In[31]:=",ExpressionUUID->"3e4d357e-2e9e-4a1a-8f1e-8fd95ab067d6"],
+
+Cell[BoxData["\<\"pound_rebka_asymmetry.pdf\"\>"], "Output",
+ CellChangeTimes->{{4.0025296376778193`*^9, 4.0025296644474077`*^9}},
+ CellLabel->"Out[45]=",ExpressionUUID->"e178f218-afb7-46d2-986d-c2caa2752e1f"]
+}, Open  ]],
+
+Cell[BoxData[
+ RowBox[{"SystemOpen", "[", "\"\<pound_rebka_asymmetry.pdf\>\"", 
+  "]"}]], "Input",
+ NumberMarks->False,
+ CellLabel->"In[46]:=",ExpressionUUID->"9cfcd6e7-7b6d-4913-9510-df2ee2d90764"]
+},
+WindowSize->{808, 911},
+WindowMargins->{{273, Automatic}, {13, Automatic}},
+FrontEndVersion->"13.0 for Mac OS X ARM (64-bit) (February 4, 2022)",
+StyleDefinitions->"Default.nb",
+ExpressionUUID->"1d9aaa64-1903-4dad-90ff-b64d9d08902f"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[580, 22, 6134, 177, 787, "Input",ExpressionUUID->"3e4d357e-2e9e-4a1a-8f1e-8fd95ab067d6"],
+Cell[6717, 201, 209, 2, 34, "Output",ExpressionUUID->"e178f218-afb7-46d2-986d-c2caa2752e1f"]
+}, Open  ]],
+Cell[6941, 206, 198, 4, 60, "Input",ExpressionUUID->"9cfcd6e7-7b6d-4913-9510-df2ee2d90764"]
+}
+]
+*)
+
+
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 13.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[     19917,        483]
+NotebookOptionsPosition[     19439,        466]
+NotebookOutlinePosition[     19830,        482]
+CellTagsIndexPosition[     19787,        479]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell[BoxData[
+ RowBox[{"Manipulate", "[", 
+  RowBox[{
+   RowBox[{"Module", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"tMax", "=", "10"}], ",", "beta", ",", "eqOfMotion", ",", 
+       "solNeutral", ",", "solLike", ",", "solOpposite", ",", "soiNeutral", ",",
+        "soiLike", ",", "soiOpposite", ",", "x", ",", "xi", ",", "t"}], "}"}],
+      ",", 
+     RowBox[{"(*", 
+      RowBox[{"Normalized", " ", "velocity"}], "*)"}], 
+     RowBox[{
+      RowBox[{
+       RowBox[{"beta", "[", 
+        RowBox[{"x_", ",", "xi_"}], "]"}], ":=", 
+       RowBox[{
+        RowBox[{"x", "'"}], "[", "xi", "]"}]}], ";", "\[IndentingNewLine]", 
+      RowBox[{"(*", 
+       RowBox[{
+       "Background", " ", "metric", " ", "expansion", " ", "function"}], 
+       "*)"}], 
+      RowBox[{
+       RowBox[{"metric", "[", "xi_", "]"}], ":=", 
+       RowBox[{
+        RowBox[{"metricPressure", "*", 
+         RowBox[{"Exp", "[", 
+          RowBox[{
+           RowBox[{"-", "0.1"}], "*", "xi"}], "]"}]}], "+", "0.1"}]}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"(*", 
+       RowBox[{"Equation", " ", "of", " ", "Motion"}], "*)"}], 
+      RowBox[{
+       RowBox[{"eqOfMotion", "[", "chargeSign_", "]"}], ":=", 
+       RowBox[{
+        RowBox[{
+         RowBox[{"x", "''"}], "[", "xi", "]"}], "==", 
+        RowBox[{
+         RowBox[{"metric", "[", "xi", "]"}], "-", 
+         RowBox[{"(", 
+          RowBox[{"gForce", "*", 
+           RowBox[{
+            RowBox[{"(", 
+             RowBox[{"1", "+", 
+              RowBox[{
+               RowBox[{"beta", "[", 
+                RowBox[{"x", ",", "xi"}], "]"}], "^", "2"}]}], ")"}], "/", 
+            RowBox[{
+             RowBox[{"x", "[", "xi", "]"}], "^", "2"}]}]}], ")"}], "+", 
+         RowBox[{"(", 
+          RowBox[{"chargeSign", "*", "eForce", "*", 
+           RowBox[{
+            RowBox[{"(", 
+             RowBox[{"1", "-", 
+              RowBox[{
+               RowBox[{"beta", "[", 
+                RowBox[{"x", ",", "xi"}], "]"}], "^", "2"}]}], ")"}], "/", 
+            RowBox[{
+             RowBox[{"x", "[", "xi", "]"}], "^", "2"}]}]}], ")"}]}]}]}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"(*", 
+       RowBox[{"Solvers", " ", 
+        RowBox[{"(", 
+         RowBox[{
+          RowBox[{"Same", " ", "as", " ", "before"}], ",", 
+          RowBox[{
+           RowBox[{
+           "using", " ", "Quiet", " ", "to", " ", "suppress", " ", 
+            "singularity", " ", "warnings", " ", "at", " ", "xr"}], "->", 
+           "0"}]}], ")"}]}], "*)"}], 
+      RowBox[{"solNeutral", "=", 
+       RowBox[{"Quiet", "@", 
+        RowBox[{"NDSolveValue", "[", 
+         RowBox[{
+          RowBox[{"{", 
+           RowBox[{
+            RowBox[{"eqOfMotion", "[", "0", "]"}], ",", 
+            RowBox[{
+             RowBox[{"x", "[", "0", "]"}], "==", "initialXr"}], ",", 
+            RowBox[{
+             RowBox[{
+              RowBox[{"x", "'"}], "[", "0", "]"}], "==", "initialBeta"}]}], 
+           "}"}], ",", "x", ",", 
+          RowBox[{"{", 
+           RowBox[{"xi", ",", "0", ",", "tMax"}], "}"}]}], "]"}]}]}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"solLike", "=", 
+       RowBox[{"Quiet", "@", 
+        RowBox[{"NDSolveValue", "[", 
+         RowBox[{
+          RowBox[{"{", 
+           RowBox[{
+            RowBox[{"eqOfMotion", "[", "1", "]"}], ",", 
+            RowBox[{
+             RowBox[{"x", "[", "0", "]"}], "==", "initialXr"}], ",", 
+            RowBox[{
+             RowBox[{
+              RowBox[{"x", "'"}], "[", "0", "]"}], "==", "initialBeta"}]}], 
+           "}"}], ",", "x", ",", 
+          RowBox[{"{", 
+           RowBox[{"xi", ",", "0", ",", "tMax"}], "}"}]}], "]"}]}]}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"solOpposite", "=", 
+       RowBox[{"Quiet", "@", 
+        RowBox[{"NDSolveValue", "[", 
+         RowBox[{
+          RowBox[{"{", 
+           RowBox[{
+            RowBox[{"eqOfMotion", "[", 
+             RowBox[{"-", "1"}], "]"}], ",", 
+            RowBox[{
+             RowBox[{"x", "[", "0", "]"}], "==", "initialXr"}], ",", 
+            RowBox[{
+             RowBox[{
+              RowBox[{"x", "'"}], "[", "0", "]"}], "==", "initialBeta"}], ",", 
+            RowBox[{"WhenEvent", "[", 
+             RowBox[{
+              RowBox[{
+               RowBox[{"x", "[", "xi", "]"}], "<=", "0.01"}], 
+              ",", "\"\<StopIntegration\>\""}], "]"}]}], "}"}], ",", "x", ",", 
+          RowBox[{"{", 
+           RowBox[{"xi", ",", "0", ",", "tMax"}], "}"}]}], "]"}]}]}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"(*", 
+       RowBox[{"Dynamic", " ", "Sphere", " ", "of", " ", "Influence", " ", 
+        RowBox[{"(", "SOI", ")"}], " ", "Radius", " ", "Function", " ", "SOI",
+         " ", "grows", " ", "with", " ", "effective", " ", "mass", " ", 
+        RowBox[{"(", 
+         RowBox[{"1", "+", 
+          RowBox[{"beta", "^", "2"}]}], ")"}], " ", "and", " ", "shrinks", " ",
+         "against", " ", "metric", " ", "pressure"}], "*)"}], 
+      RowBox[{
+       RowBox[{"soiRadius", "[", 
+        RowBox[{"sol_", ",", "xi_"}], "]"}], ":=", 
+       RowBox[{
+        RowBox[{"(", 
+         RowBox[{"gForce", "*", 
+          RowBox[{"(", 
+           RowBox[{"1", "+", 
+            RowBox[{
+             RowBox[{"(", 
+              RowBox[{
+               RowBox[{"sol", "'"}], "[", "xi", "]"}], ")"}], "^", "2"}]}], 
+           ")"}]}], ")"}], "/", 
+        RowBox[{"(", 
+         RowBox[{"1", "+", 
+          RowBox[{
+           RowBox[{"metric", "[", "xi", "]"}], "*", 
+           RowBox[{"sol", "[", "xi", "]"}]}]}], ")"}]}]}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"(*", 
+       RowBox[{
+       "Plotting", " ", "the", " ", "Traces", " ", "with", " ", "Shaded", " ",
+         "Spheres", " ", "of", " ", "Influence"}], "*)"}], 
+      RowBox[{"Show", "[", 
+       RowBox[{"(*", 
+        RowBox[{"Shaded", " ", "regions", " ", "representing", " ", "the", " ", 
+         RowBox[{"expanding", "/", "shrinking"}], " ", "SOI"}], "*)"}], 
+       RowBox[{
+        RowBox[{"Plot", "[", 
+         RowBox[{
+          RowBox[{"{", 
+           RowBox[{
+            RowBox[{"{", 
+             RowBox[{
+              RowBox[{
+               RowBox[{"solNeutral", "[", "xi", "]"}], "-", 
+               RowBox[{"soiRadius", "[", 
+                RowBox[{"solNeutral", ",", "xi"}], "]"}]}], ",", 
+              RowBox[{
+               RowBox[{"solNeutral", "[", "xi", "]"}], "+", 
+               RowBox[{"soiRadius", "[", 
+                RowBox[{"solNeutral", ",", "xi"}], "]"}]}]}], "}"}], ",", 
+            RowBox[{"{", 
+             RowBox[{
+              RowBox[{
+               RowBox[{"solLike", "[", "xi", "]"}], "-", 
+               RowBox[{"soiRadius", "[", 
+                RowBox[{"solLike", ",", "xi"}], "]"}]}], ",", 
+              RowBox[{
+               RowBox[{"solLike", "[", "xi", "]"}], "+", 
+               RowBox[{"soiRadius", "[", 
+                RowBox[{"solLike", ",", "xi"}], "]"}]}]}], "}"}], ",", 
+            RowBox[{"{", 
+             RowBox[{
+              RowBox[{
+               RowBox[{"solOpposite", "[", "xi", "]"}], "-", 
+               RowBox[{"soiRadius", "[", 
+                RowBox[{"solOpposite", ",", "xi"}], "]"}]}], ",", 
+              RowBox[{
+               RowBox[{"solOpposite", "[", "xi", "]"}], "+", 
+               RowBox[{"soiRadius", "[", 
+                RowBox[{"solOpposite", ",", "xi"}], "]"}]}]}], "}"}]}], "}"}],
+           ",", 
+          RowBox[{"{", 
+           RowBox[{"xi", ",", "0", ",", "tMax"}], "}"}], ",", 
+          RowBox[{"Filling", "->", 
+           RowBox[{"{", 
+            RowBox[{
+             RowBox[{"1", "->", 
+              RowBox[{"{", "2", "}"}]}], ",", 
+             RowBox[{"3", "->", 
+              RowBox[{"{", "4", "}"}]}], ",", 
+             RowBox[{"5", "->", 
+              RowBox[{"{", "6", "}"}]}]}], "}"}]}], ",", 
+          RowBox[{"PlotStyle", "->", "None"}], ",", 
+          RowBox[{"FillingStyle", "->", 
+           RowBox[{"{", 
+            RowBox[{
+             RowBox[{"1", "->", 
+              RowBox[{"Directive", "[", 
+               RowBox[{"Gray", ",", 
+                RowBox[{"Opacity", "[", "0.2", "]"}]}], "]"}]}], ",", 
+             RowBox[{"3", "->", 
+              RowBox[{"Directive", "[", 
+               RowBox[{"Red", ",", 
+                RowBox[{"Opacity", "[", "0.2", "]"}]}], "]"}]}], ",", 
+             RowBox[{"5", "->", 
+              RowBox[{"Directive", "[", 
+               RowBox[{"Blue", ",", 
+                RowBox[{"Opacity", "[", "0.2", "]"}]}], "]"}]}]}], "}"}]}]}], 
+         "]"}], ",", 
+        RowBox[{"(*", 
+         RowBox[{"The", " ", "hard", " ", "geometric", " ", "traces"}], 
+         "*)"}], 
+        RowBox[{"Plot", "[", 
+         RowBox[{
+          RowBox[{"{", 
+           RowBox[{
+            RowBox[{"solNeutral", "[", "xi", "]"}], ",", 
+            RowBox[{"solLike", "[", "xi", "]"}], ",", 
+            RowBox[{"solOpposite", "[", "xi", "]"}]}], "}"}], ",", 
+          RowBox[{"{", 
+           RowBox[{"xi", ",", "0", ",", "tMax"}], "}"}], ",", 
+          RowBox[{"PlotStyle", "->", 
+           RowBox[{"{", 
+            RowBox[{
+             RowBox[{"Directive", "[", 
+              RowBox[{"Thick", ",", "Gray"}], "]"}], ",", 
+             RowBox[{"Directive", "[", 
+              RowBox[{"Thick", ",", "Red", ",", "Dashed"}], "]"}], ",", 
+             RowBox[{"Directive", "[", 
+              RowBox[{"Thick", ",", "Blue", ",", "Dotted"}], "]"}]}], "}"}]}],
+           ",", 
+          RowBox[{"PlotRange", "->", 
+           RowBox[{"{", 
+            RowBox[{
+             RowBox[{"{", 
+              RowBox[{"0", ",", "tMax"}], "}"}], ",", 
+             RowBox[{"{", 
+              RowBox[{"0", ",", 
+               RowBox[{"initialXr", "+", "5"}]}], "}"}]}], "}"}]}], ",", 
+          RowBox[{"AxesOrigin", "->", 
+           RowBox[{"{", 
+            RowBox[{"0", ",", "0"}], "}"}]}], ",", 
+          RowBox[{"Frame", "->", "True"}], ",", 
+          RowBox[{"FrameLabel", "->", 
+           RowBox[{"{", 
+            
+            RowBox[{"\"\<Imaginary Axis / Metric Evolution (xi)\>\"", 
+             ",", "\"\<Real Spatial Distance (xr)\>\""}], "}"}]}]}], "]"}]}], 
+       "]"}]}]}], "]"}], ",", 
+   RowBox[{"(*", "Sliders", "*)"}], 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+      "metricPressure", ",", "0.5", 
+       ",", "\"\<Background Metric Expansion (dp/dxi)\>\""}], "}"}], ",", "0",
+      ",", "2"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+      "gForce", ",", "1.0", 
+       ",", "\"\<Base Gravitational Coupling (+mi)\>\""}], "}"}], ",", "0.1", 
+     ",", "5"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"eForce", ",", "3.0", ",", "\"\<Base Electric Coupling\>\""}], 
+      "}"}], ",", "0", ",", "10"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+      "initialXr", ",", "3.0", ",", "\"\<Initial Real Distance (xr)\>\""}], 
+      "}"}], ",", "1.0", ",", "5"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+      "initialBeta", ",", "0.0", 
+       ",", "\"\<Initial Relative Velocity (\[Beta])\>\""}], "}"}], ",", 
+     RowBox[{"-", "0.9"}], ",", "0.9"}], "}"}]}], "]"}]], "Input",
+ CellChangeTimes->{{4.002442523754407*^9, 4.002442523756031*^9}, 
+   4.002442579637403*^9},
+ CellLabel->"In[2]:=",ExpressionUUID->"8d212a62-5b2e-4a03-b385-082234cad584"],
+
+Cell[BoxData[
+ TagBox[
+  StyleBox[
+   DynamicModuleBox[{$CellContext`eForce$$ = 3., $CellContext`gForce$$ = 
+    1.1400000000000001`, $CellContext`initialBeta$$ = 
+    0., $CellContext`initialXr$$ = 2.99, $CellContext`metricPressure$$ = 0.5, 
+    Typeset`show$$ = True, Typeset`bookmarkList$$ = {}, 
+    Typeset`bookmarkMode$$ = "Menu", Typeset`animator$$, Typeset`animvar$$ = 
+    1, Typeset`name$$ = "\"untitled\"", Typeset`specs$$ = {{{
+       Hold[$CellContext`metricPressure$$], 0.5, 
+       "Background Metric Expansion (dp/dxi)"}, 0, 2, ControlType -> 
+      Manipulator}, {{
+       Hold[$CellContext`gForce$$], 1., "Base Gravitational Coupling (+mi)"}, 
+      0.1, 5, ControlType -> Manipulator}, {{
+       Hold[$CellContext`eForce$$], 3., "Base Electric Coupling"}, 0, 10, 
+      ControlType -> Manipulator}, {{
+       Hold[$CellContext`initialXr$$], 3., "Initial Real Distance (xr)"}, 1., 
+      5, ControlType -> Manipulator}, {{
+       Hold[$CellContext`initialBeta$$], 0., 
+       "Initial Relative Velocity (\[Beta])"}, -0.9, 0.9, ControlType -> 
+      Manipulator}}, Typeset`size$$ = {
+    360., {108.13059768001798`, 113.86253127376798`}}, Typeset`update$$ = 0, 
+    Typeset`initDone$$, Typeset`skipInitDone$$ = True, 
+    Typeset`keyframeActionsQ$$ = False, Typeset`keyframeList$$ = {}}, 
+    DynamicBox[Manipulate`ManipulateBoxes[
+     1, StandardForm, 
+      "Variables" :> {$CellContext`eForce$$ = 3., $CellContext`gForce$$ = 
+        1., $CellContext`initialBeta$$ = 0., $CellContext`initialXr$$ = 
+        3., $CellContext`metricPressure$$ = 0.5}, "ControllerVariables" :> {},
+       "OtherVariables" :> {
+       Typeset`show$$, Typeset`bookmarkList$$, Typeset`bookmarkMode$$, 
+        Typeset`animator$$, Typeset`animvar$$, Typeset`name$$, 
+        Typeset`specs$$, Typeset`size$$, Typeset`update$$, Typeset`initDone$$,
+         Typeset`skipInitDone$$, Typeset`keyframeActionsQ$$, 
+        Typeset`keyframeList$$}, "Body" :> 
+      Module[{$CellContext`tMax$ = 
+         10, $CellContext`beta$, $CellContext`eqOfMotion$, \
+$CellContext`solNeutral$, $CellContext`solLike$, $CellContext`solOpposite$, \
+$CellContext`soiNeutral$, $CellContext`soiLike$, $CellContext`soiOpposite$, \
+$CellContext`x$, $CellContext`xi$, $CellContext`t$}, $CellContext`beta$[
+           Pattern[$CellContext`x, 
+            Blank[]], 
+           Pattern[$CellContext`xi, 
+            Blank[]]] := 
+         Derivative[1][$CellContext`x][$CellContext`xi]; $CellContext`metric[
+           Pattern[$CellContext`xi$, 
+            Blank[]]] := $CellContext`metricPressure$$ 
+           Exp[(-0.1) $CellContext`xi$] + 0.1; $CellContext`eqOfMotion$[
+           Pattern[$CellContext`chargeSign$, 
+            Blank[]]] := 
+         Derivative[
+           2][$CellContext`x$][$CellContext`xi$] == \
+$CellContext`metric[$CellContext`xi$] - $CellContext`gForce$$ ((
+             1 + $CellContext`beta$[$CellContext`x$, \
+$CellContext`xi$]^2)/$CellContext`x$[$CellContext`xi$]^2) + \
+$CellContext`chargeSign$ $CellContext`eForce$$ ((
+              1 - $CellContext`beta$[$CellContext`x$, \
+$CellContext`xi$]^2)/$CellContext`x$[$CellContext`xi$]^2); \
+$CellContext`solNeutral$ = Quiet[
+           NDSolveValue[{
+             $CellContext`eqOfMotion$[
+             0], $CellContext`x$[0] == $CellContext`initialXr$$, 
+             Derivative[1][$CellContext`x$][
+              0] == $CellContext`initialBeta$$}, $CellContext`x$, \
+{$CellContext`xi$, 0, $CellContext`tMax$}]]; $CellContext`solLike$ = Quiet[
+           NDSolveValue[{
+             $CellContext`eqOfMotion$[
+             1], $CellContext`x$[0] == $CellContext`initialXr$$, 
+             Derivative[1][$CellContext`x$][
+              0] == $CellContext`initialBeta$$}, $CellContext`x$, \
+{$CellContext`xi$, 0, $CellContext`tMax$}]]; $CellContext`solOpposite$ = Quiet[
+           NDSolveValue[{
+             $CellContext`eqOfMotion$[-1], $CellContext`x$[
+              0] == $CellContext`initialXr$$, 
+             Derivative[1][$CellContext`x$][0] == $CellContext`initialBeta$$, 
+             
+             
+             WhenEvent[$CellContext`x$[$CellContext`xi$] <= 0.01, 
+              "StopIntegration"]}, $CellContext`x$, {$CellContext`xi$, 
+             0, $CellContext`tMax$}]]; $CellContext`soiRadius[
+           Pattern[$CellContext`sol$, 
+            Blank[]], 
+           Pattern[$CellContext`xi$, 
+            Blank[]]] := ($CellContext`gForce$$ (1 + 
+            Derivative[1][$CellContext`sol$][$CellContext`xi$]^2))/(
+          1 + $CellContext`metric[$CellContext`xi$] \
+$CellContext`sol$[$CellContext`xi$]); Show[
+          
+          Plot[{{$CellContext`solNeutral$[$CellContext`xi$] - \
+$CellContext`soiRadius[$CellContext`solNeutral$, $CellContext`xi$], \
+$CellContext`solNeutral$[$CellContext`xi$] + \
+$CellContext`soiRadius[$CellContext`solNeutral$, $CellContext`xi$]}, \
+{$CellContext`solLike$[$CellContext`xi$] - \
+$CellContext`soiRadius[$CellContext`solLike$, $CellContext`xi$], \
+$CellContext`solLike$[$CellContext`xi$] + \
+$CellContext`soiRadius[$CellContext`solLike$, $CellContext`xi$]}, \
+{$CellContext`solOpposite$[$CellContext`xi$] - \
+$CellContext`soiRadius[$CellContext`solOpposite$, $CellContext`xi$], \
+$CellContext`solOpposite$[$CellContext`xi$] + \
+$CellContext`soiRadius[$CellContext`solOpposite$, $CellContext`xi$]}}, \
+{$CellContext`xi$, 0, $CellContext`tMax$}, 
+           Filling -> {1 -> {2}, 3 -> {4}, 5 -> {6}}, PlotStyle -> None, 
+           FillingStyle -> {1 -> Directive[Gray, 
+               Opacity[0.2]], 3 -> Directive[Red, 
+               Opacity[0.2]], 5 -> Directive[Blue, 
+               Opacity[0.2]]}], 
+          Plot[{
+            $CellContext`solNeutral$[$CellContext`xi$], 
+            $CellContext`solLike$[$CellContext`xi$], 
+            $CellContext`solOpposite$[$CellContext`xi$]}, {$CellContext`xi$, 
+            0, $CellContext`tMax$}, PlotStyle -> {
+             Directive[Thick, Gray], 
+             Directive[Thick, Red, Dashed], 
+             Directive[Thick, Blue, Dotted]}, 
+           PlotRange -> {{0, $CellContext`tMax$}, {
+             0, $CellContext`initialXr$$ + 5}}, AxesOrigin -> {0, 0}, Frame -> 
+           True, FrameLabel -> {
+            "Imaginary Axis / Metric Evolution (xi)", 
+             "Real Spatial Distance (xr)"}]]], 
+      "Specifications" :> {{{$CellContext`metricPressure$$, 0.5, 
+          "Background Metric Expansion (dp/dxi)"}, 0, 
+         2}, {{$CellContext`gForce$$, 1., 
+          "Base Gravitational Coupling (+mi)"}, 0.1, 
+         5}, {{$CellContext`eForce$$, 3., "Base Electric Coupling"}, 0, 
+         10}, {{$CellContext`initialXr$$, 3., "Initial Real Distance (xr)"}, 
+         1., 5}, {{$CellContext`initialBeta$$, 0., 
+          "Initial Relative Velocity (\[Beta])"}, -0.9, 0.9}}, 
+      "Options" :> {}, "DefaultOptions" :> {}],
+     ImageSizeCache->{
+      410.9868359375, {215.00102309505706`, 220.73295668880706`}},
+     SingleEvaluation->True],
+    Deinitialization:>None,
+    DynamicModuleValues:>{},
+    SynchronousInitialization->True,
+    UndoTrackedVariables:>{Typeset`show$$, Typeset`bookmarkMode$$},
+    UnsavedVariables:>{Typeset`initDone$$},
+    UntrackedVariables:>{Typeset`size$$}], "Manipulate",
+   Deployed->True,
+   StripOnInput->False],
+  Manipulate`InterpretManipulate[1]]], "Output",
+ CellChangeTimes->{4.0024426832760477`*^9, 4.002442736258258*^9},
+ CellLabel->"Out[2]=",ExpressionUUID->"392af63d-4a2c-467e-ad44-e112c07d7003"]
+}, Open  ]]
+},
+WindowSize->{808, 911},
+WindowMargins->{{52, Automatic}, {0, Automatic}},
+FrontEndVersion->"14.3 for Mac OS X ARM (64-bit) (July 8, 2025)",
+StyleDefinitions->"Default.nb",
+ExpressionUUID->"1438c59b-dada-4f90-b78f-10ce6ce4e02a"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[580, 22, 11422, 298, 866, "Input",ExpressionUUID->"8d212a62-5b2e-4a03-b385-082234cad584"],
+Cell[12005, 322, 7418, 141, 471, "Output",ExpressionUUID->"392af63d-4a2c-467e-ad44-e112c07d7003"]
+}, Open  ]]
+}
+]
+*)
+
+
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 13.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[     17258,        424]
+NotebookOptionsPosition[     16775,        407]
+NotebookOutlinePosition[     17172,        423]
+CellTagsIndexPosition[     17129,        420]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"Redshift", " ", 
+      RowBox[{"Decoupler", ":", 
+       RowBox[{"Pound", "-", 
+        RowBox[{"Rebka", " ", "Asymmetry"}]}]}]}], "&"}], " ", "Density", " ",
+     "Lag"}], "*)"}], 
+  RowBox[{"Manipulate", "[", 
+   RowBox[{
+    RowBox[{"Module", "[", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{
+       "t", ",", "a", ",", "rho", ",", "zKin", ",", "zGrav", ",", "zTotal"}], 
+       "}"}], ",", 
+      RowBox[{"(*", 
+       RowBox[{"1.", " ", "Kinematic", " ", "Scale", " ", "Factor", " ", 
+        RowBox[{"(", 
+         RowBox[{"Physical", " ", "Expansion"}], ")"}]}], "*)"}], 
+      RowBox[{"(*", 
+       RowBox[{
+        RowBox[{
+         RowBox[{"a", 
+          RowBox[{"(", "t", ")"}], " ", "represents", " ", "the", " ", 
+          "physical", " ", "stretching", " ", "of", " ", 
+          RowBox[{"space", ".", "If"}], " ", "kinematicH"}], "=", "0"}], ",", 
+        
+        RowBox[{"the", " ", "universe", " ", "is", " ", "physically", " ", 
+         RowBox[{"static", "."}]}]}], "*)"}], 
+      RowBox[{
+       RowBox[{
+        RowBox[{"a", "[", "t_", "]"}], ":=", 
+        RowBox[{"Exp", "[", 
+         RowBox[{"kinematicH", "*", "t"}], "]"}]}], ";", 
+       "\[IndentingNewLine]", 
+       RowBox[{"(*", 
+        RowBox[{"2.", " ", "Retarded", " ", "Density", " ", "Gradient"}], 
+        "*)"}], 
+       RowBox[{"(*", 
+        RowBox[{
+        "The", " ", "universe", " ", "was", " ", "much", " ", "denser", " ", 
+         "in", " ", "the", " ", "past", " ", 
+         RowBox[{
+          RowBox[{"(", "source", ")"}], ".", "This"}], " ", "models", " ", 
+         "the", " ", "density", " ", "dropping", " ", "over", " ", "the", " ", 
+         RowBox[{"photon", "'"}], "s", " ", "travel", " ", 
+         RowBox[{"time", "."}]}], "*)"}], 
+       RowBox[{
+        RowBox[{"rho", "[", "t_", "]"}], ":=", 
+        RowBox[{"presentDensity", "+", 
+         RowBox[{
+          RowBox[{"(", 
+           RowBox[{"pastDensity", "-", "presentDensity"}], ")"}], "*", 
+          RowBox[{"Exp", "[", 
+           RowBox[{
+            RowBox[{"-", "densityDecay"}], "*", 
+            RowBox[{"(", 
+             RowBox[{"lookbackMax", "-", "t"}], ")"}]}], "]"}]}]}]}], ";", 
+       "\[IndentingNewLine]", 
+       RowBox[{"(*", 
+        RowBox[{"3.", " ", "Kinematic", " ", "Redshift", " ", "Component"}], 
+        "*)"}], 
+       RowBox[{"(*", 
+        RowBox[{"Standard", " ", 
+         RowBox[{"Doppler", "/", "metric"}], " ", "stretching", " ", 
+         RowBox[{"effect", "."}]}], "*)"}], 
+       RowBox[{
+        RowBox[{"zKin", "[", "t_", "]"}], ":=", 
+        RowBox[{
+         RowBox[{
+          RowBox[{"a", "[", "lookbackMax", "]"}], "/", 
+          RowBox[{"a", "[", 
+           RowBox[{"lookbackMax", "-", "t"}], "]"}]}], "-", "1"}]}], ";", 
+       "\[IndentingNewLine]", 
+       RowBox[{"(*", 
+        RowBox[{
+        "4.", " ", "Gravitational", " ", "Redshift", " ", "Component", " ", 
+         RowBox[{"(", 
+          RowBox[{"The", " ", "Asymmetry"}], ")"}]}], "*)"}], 
+       RowBox[{"(*", 
+        RowBox[{
+         RowBox[{
+         "The", " ", "photon", " ", "loses", " ", "massive", " ", "energy", 
+          " ", "climbing", " ", "out", " ", "of", " ", "the", " ", "dense", 
+          " ", "past"}], ",", 
+         RowBox[{
+         "but", " ", "gains", " ", "very", " ", "little", " ", "falling", " ",
+           "into", " ", "the", " ", "sparse", " ", "present", " ", 
+          RowBox[{"field", "."}]}]}], "*)"}], 
+       RowBox[{
+        RowBox[{"zGrav", "[", "t_", "]"}], ":=", 
+        RowBox[{"gravCoupling", "*", 
+         RowBox[{"Integrate", "[", 
+          RowBox[{
+           RowBox[{"rho", "[", "tau", "]"}], ",", 
+           RowBox[{"{", 
+            RowBox[{"tau", ",", 
+             RowBox[{"lookbackMax", "-", "t"}], ",", "lookbackMax"}], "}"}]}],
+           "]"}]}]}], ";", "\[IndentingNewLine]", 
+       RowBox[{"(*", 
+        RowBox[{"5.", " ", "Total", " ", "Observed", " ", "Redshift"}], 
+        "*)"}], 
+       RowBox[{"(*", 
+        RowBox[{"The", " ", "compound", " ", "observational", " ", "effect"}],
+         "*)"}], 
+       RowBox[{
+        RowBox[{"zTotal", "[", "t_", "]"}], ":=", 
+        RowBox[{
+         RowBox[{
+          RowBox[{"(", 
+           RowBox[{"1", "+", 
+            RowBox[{"zKin", "[", "t", "]"}]}], ")"}], "*", 
+          RowBox[{"(", 
+           RowBox[{"1", "+", 
+            RowBox[{"zGrav", "[", "t", "]"}]}], ")"}]}], "-", "1"}]}], ";", 
+       "\[IndentingNewLine]", 
+       RowBox[{"(*", 
+        RowBox[{"Render", " ", "the", " ", "Decoupling", " ", "Plots"}], 
+        "*)"}], 
+       RowBox[{"Column", "[", 
+        RowBox[{"{", 
+         RowBox[{"(*", 
+          RowBox[{"Plot", " ", 
+           RowBox[{"A", ":", 
+            RowBox[{"Redshift", " ", "Components"}]}]}], "*)"}], 
+         RowBox[{
+          RowBox[{"Plot", "[", 
+           RowBox[{
+            RowBox[{"{", 
+             RowBox[{
+              RowBox[{"zKin", "[", "t", "]"}], ",", 
+              RowBox[{"zGrav", "[", "t", "]"}], ",", 
+              RowBox[{"zTotal", "[", "t", "]"}]}], "}"}], ",", 
+            RowBox[{"{", 
+             RowBox[{"t", ",", "0", ",", "lookbackMax"}], "}"}], ",", 
+            RowBox[{"PlotStyle", "->", 
+             RowBox[{"{", 
+              RowBox[{
+               RowBox[{"Directive", "[", 
+                RowBox[{"Thick", ",", "Blue", ",", "Dashed"}], "]"}], ",", 
+               RowBox[{"Directive", "[", 
+                RowBox[{"Thick", ",", "Red", ",", "Dotted"}], "]"}], ",", 
+               RowBox[{"Directive", "[", 
+                RowBox[{"Thick", ",", "Purple"}], "]"}]}], "}"}]}], ",", 
+            RowBox[{"PlotRange", "->", "All"}], ",", 
+            RowBox[{"Frame", "->", "True"}], ",", 
+            RowBox[{"FrameLabel", "->", 
+             RowBox[{"{", 
+              RowBox[{
+              "\"\<Lookback Distance (Billions of Light Years)\>\"", ",", 
+               "\"\<Observed Redshift (z)\>\""}], "}"}]}], ",", 
+            RowBox[{"PlotLegends", "->", 
+             RowBox[{"{", 
+              RowBox[{
+              "\"\<z (Kinematic Expansion)\>\"", ",", 
+               "\"\<z (Gravitational Lag)\>\"", ",", 
+               "\"\<z (Total Observed)\>\""}], "}"}]}], ",", 
+            RowBox[{
+            "PlotLabel", "->", 
+             "\"\<Compound Redshift: Decoupling Physical Expansion from \
+Density Lag\>\""}], ",", 
+            RowBox[{"ImageSize", "->", "Large"}]}], "]"}], ",", 
+          RowBox[{"(*", 
+           RowBox[{"Plot", " ", 
+            RowBox[{"B", ":", 
+             RowBox[{
+             "The", " ", "Retarded", " ", "Gravitational", " ", "Field"}]}]}],
+            "*)"}], 
+          RowBox[{"Plot", "[", 
+           RowBox[{
+            RowBox[{"rho", "[", "t", "]"}], ",", 
+            RowBox[{"{", 
+             RowBox[{"t", ",", "0", ",", "lookbackMax"}], "}"}], ",", 
+            RowBox[{"PlotStyle", "->", 
+             RowBox[{"Directive", "[", 
+              RowBox[{"Thick", ",", "Gray"}], "]"}]}], ",", 
+            RowBox[{"PlotRange", "->", 
+             RowBox[{"{", 
+              RowBox[{"0", ",", 
+               RowBox[{"pastDensity", "+", "1"}]}], "}"}]}], ",", 
+            RowBox[{"Filling", "->", "Axis"}], ",", 
+            RowBox[{"FillingStyle", "->", 
+             RowBox[{"Directive", "[", 
+              RowBox[{"Gray", ",", 
+               RowBox[{"Opacity", "[", "0.2", "]"}]}], "]"}]}], ",", 
+            RowBox[{"Frame", "->", "True"}], ",", 
+            RowBox[{"FrameLabel", "->", 
+             RowBox[{"{", 
+              RowBox[{
+              "\"\<Lookback Distance (BLY)\>\"", ",", 
+               "\"\<Effective Mass Density of Shells\>\""}], "}"}]}], ",", 
+            RowBox[{
+            "PlotLabel", "->", 
+             "\"\<Pound-Rebka Asymmetry: The Density Drop-Off\>\""}], ",", 
+            RowBox[{"ImageSize", "->", "Large"}]}], "]"}]}], "}"}], "]"}]}]}],
+      "]"}], ",", 
+    RowBox[{"(*", 
+     RowBox[{"Physics", " ", "Sliders"}], "*)"}], 
+    RowBox[{"Style", "[", 
+     RowBox[{
+     "\"\<Physical Expansion (The Standard Model Variable)\>\"", ",", 
+      "Bold"}], "]"}], ",", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{
+       "kinematicH", ",", "0.0", ",", "\"\<Kinematic Expansion Rate\>\""}], 
+       "}"}], ",", "0.0", ",", "0.2"}], "}"}], ",", "Delimiter", ",", 
+    RowBox[{"Style", "[", 
+     RowBox[{
+     "\"\<Gravitational Density Lag (The SO(4,4) Variable)\>\"", ",", 
+      "Bold"}], "]"}], ",", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{
+       "pastDensity", ",", "8.0", ",", 
+        "\"\<Source Density (Dense Past)\>\""}], "}"}], ",", "1.0", ",", 
+      "15.0"}], "}"}], ",", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{
+       "presentDensity", ",", "0.5", ",", 
+        "\"\<Receiver Density (Sparse Present)\>\""}], "}"}], ",", "0.1", ",",
+       "5.0"}], "}"}], ",", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{
+       "densityDecay", ",", "0.3", ",", 
+        "\"\<Density Decay Rate over Time\>\""}], "}"}], ",", "0.1", ",", 
+      "1.0"}], "}"}], ",", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{
+       "gravCoupling", ",", "0.05", ",", 
+        "\"\<Gravitational Retardation Coupling\>\""}], "}"}], ",", "0.0", 
+      ",", "0.2"}], "}"}], ",", "Delimiter", ",", 
+    RowBox[{"Style", "[", 
+     RowBox[{"\"\<Observational Boundary\>\"", ",", "Bold"}], "]"}], ",", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{
+       "lookbackMax", ",", "13.9", ",", 
+        "\"\<Optical Boundary Limit (BLY)\>\""}], "}"}], ",", "5.0", ",", 
+      "20.0"}], "}"}]}], "]"}]}]], "Input",
+ CellChangeTimes->{{4.002440542621811*^9, 4.002440542623117*^9}},
+ CellLabel->"In[1]:=",ExpressionUUID->"3b24c383-d56f-49ff-aeff-c83feaae3f7c"],
+
+Cell[BoxData[
+ TagBox[
+  StyleBox[
+   DynamicModuleBox[{$CellContext`densityDecay$$ = 
+    0.3, $CellContext`gravCoupling$$ = 0.05, $CellContext`kinematicH$$ = 
+    0., $CellContext`lookbackMax$$ = 13.9, $CellContext`pastDensity$$ = 
+    8., $CellContext`presentDensity$$ = 0.5, Typeset`show$$ = True, 
+    Typeset`bookmarkList$$ = {}, Typeset`bookmarkMode$$ = "Menu", 
+    Typeset`animator$$, Typeset`animvar$$ = 1, Typeset`name$$ = 
+    "\"untitled\"", Typeset`specs$$ = {{
+      Hold[
+       Style["Physical Expansion (The Standard Model Variable)", Bold]], 
+      Manipulate`Dump`ThisIsNotAControl}, {{
+       Hold[$CellContext`kinematicH$$], 0., "Kinematic Expansion Rate"}, 0., 
+      0.2}, {
+      Hold[
+       Style["Gravitational Density Lag (The SO(4,4) Variable)", Bold]], 
+      Manipulate`Dump`ThisIsNotAControl}, {{
+       Hold[$CellContext`pastDensity$$], 8., "Source Density (Dense Past)"}, 
+      1., 15.}, {{
+       Hold[$CellContext`presentDensity$$], 0.5, 
+       "Receiver Density (Sparse Present)"}, 0.1, 5.}, {{
+       Hold[$CellContext`densityDecay$$], 0.3, 
+       "Density Decay Rate over Time"}, 0.1, 1.}, {{
+       Hold[$CellContext`gravCoupling$$], 0.05, 
+       "Gravitational Retardation Coupling"}, 0., 0.2}, {
+      Hold[
+       Style["Observational Boundary", Bold]], 
+      Manipulate`Dump`ThisIsNotAControl}, {{
+       Hold[$CellContext`lookbackMax$$], 13.9, 
+       "Optical Boundary Limit (BLY)"}, 5., 20.}}, Typeset`size$$ = {
+    779., {387.134033203125, 392.865966796875}}, Typeset`update$$ = 0, 
+    Typeset`initDone$$, Typeset`skipInitDone$$ = True}, 
+    DynamicBox[Manipulate`ManipulateBoxes[
+     1, StandardForm, 
+      "Variables" :> {$CellContext`densityDecay$$ = 
+        0.3, $CellContext`gravCoupling$$ = 0.05, $CellContext`kinematicH$$ = 
+        0., $CellContext`lookbackMax$$ = 13.9, $CellContext`pastDensity$$ = 
+        8., $CellContext`presentDensity$$ = 0.5}, "ControllerVariables" :> {},
+       "OtherVariables" :> {
+       Typeset`show$$, Typeset`bookmarkList$$, Typeset`bookmarkMode$$, 
+        Typeset`animator$$, Typeset`animvar$$, Typeset`name$$, 
+        Typeset`specs$$, Typeset`size$$, Typeset`update$$, Typeset`initDone$$,
+         Typeset`skipInitDone$$}, "Body" :> 
+      Module[{$CellContext`t$, $CellContext`a$, $CellContext`rho$, \
+$CellContext`zKin$, $CellContext`zGrav$, $CellContext`zTotal$}, \
+$CellContext`a$[
+           Pattern[$CellContext`t$, 
+            Blank[]]] := 
+         Exp[$CellContext`kinematicH$$ $CellContext`t$]; $CellContext`rho$[
+           Pattern[$CellContext`t$, 
+            
+            Blank[]]] := $CellContext`presentDensity$$ + \
+($CellContext`pastDensity$$ - $CellContext`presentDensity$$) 
+           Exp[(-$CellContext`densityDecay$$) ($CellContext`lookbackMax$$ - \
+$CellContext`t$)]; $CellContext`zKin$[
+           Pattern[$CellContext`t$, 
+            
+            Blank[]]] := \
+$CellContext`a$[$CellContext`lookbackMax$$]/$CellContext`a$[$CellContext`\
+lookbackMax$$ - $CellContext`t$] - 1; $CellContext`zGrav$[
+           Pattern[$CellContext`t$, 
+            Blank[]]] := $CellContext`gravCoupling$$ Integrate[
+            $CellContext`rho$[$CellContext`tau], {$CellContext`tau, \
+$CellContext`lookbackMax$$ - $CellContext`t$, $CellContext`lookbackMax$$}]; \
+$CellContext`zTotal$[
+           Pattern[$CellContext`t$, 
+            Blank[]]] := (1 + $CellContext`zKin$[$CellContext`t$]) (
+            1 + $CellContext`zGrav$[$CellContext`t$]) - 1; Column[{
+           Plot[{
+             $CellContext`zKin$[$CellContext`t$], 
+             $CellContext`zGrav$[$CellContext`t$], 
+             $CellContext`zTotal$[$CellContext`t$]}, {$CellContext`t$, 
+             0, $CellContext`lookbackMax$$}, PlotStyle -> {
+              Directive[Thick, Blue, Dashed], 
+              Directive[Thick, Red, Dotted], 
+              Directive[Thick, Purple]}, PlotRange -> All, Frame -> True, 
+            FrameLabel -> {
+             "Lookback Distance (Billions of Light Years)", 
+              "Observed Redshift (z)"}, 
+            PlotLegends -> {
+             "z (Kinematic Expansion)", "z (Gravitational Lag)", 
+              "z (Total Observed)"}, PlotLabel -> 
+            "Compound Redshift: Decoupling Physical Expansion from Density \
+Lag", ImageSize -> Large], 
+           Plot[
+            $CellContext`rho$[$CellContext`t$], {$CellContext`t$, 
+             0, $CellContext`lookbackMax$$}, PlotStyle -> 
+            Directive[Thick, Gray], 
+            PlotRange -> {0, $CellContext`pastDensity$$ + 1}, Filling -> Axis,
+             FillingStyle -> Directive[Gray, 
+              Opacity[0.2]], Frame -> True, 
+            FrameLabel -> {
+             "Lookback Distance (BLY)", "Effective Mass Density of Shells"}, 
+            PlotLabel -> "Pound-Rebka Asymmetry: The Density Drop-Off", 
+            ImageSize -> Large]}]], "Specifications" :> {
+        Style[
+        "Physical Expansion (The Standard Model Variable)", 
+         Bold], {{$CellContext`kinematicH$$, 0., "Kinematic Expansion Rate"}, 
+         0., 0.2}, Delimiter, 
+        Style[
+        "Gravitational Density Lag (The SO(4,4) Variable)", 
+         Bold], {{$CellContext`pastDensity$$, 8., 
+          "Source Density (Dense Past)"}, 1., 
+         15.}, {{$CellContext`presentDensity$$, 0.5, 
+          "Receiver Density (Sparse Present)"}, 0.1, 
+         5.}, {{$CellContext`densityDecay$$, 0.3, 
+          "Density Decay Rate over Time"}, 0.1, 
+         1.}, {{$CellContext`gravCoupling$$, 0.05, 
+          "Gravitational Retardation Coupling"}, 0., 0.2}, Delimiter, 
+        Style[
+        "Observational Boundary", 
+         Bold], {{$CellContext`lookbackMax$$, 13.9, 
+          "Optical Boundary Limit (BLY)"}, 5., 20.}}, "Options" :> {}, 
+      "DefaultOptions" :> {}],
+     ImageSizeCache->{1192., {417., 423.}},
+     SingleEvaluation->True],
+    Deinitialization:>None,
+    DynamicModuleValues:>{},
+    SynchronousInitialization->True,
+    UndoTrackedVariables:>{Typeset`show$$, Typeset`bookmarkMode$$},
+    UnsavedVariables:>{Typeset`initDone$$},
+    UntrackedVariables:>{Typeset`size$$}], "Manipulate",
+   Deployed->True,
+   StripOnInput->False],
+  Manipulate`InterpretManipulate[1]]], "Output",
+ CellChangeTimes->{4.0024405983499804`*^9},
+ CellLabel->"Out[1]=",ExpressionUUID->"be3d8083-efce-428c-b565-138f135ce8ab"]
+}, Open  ]]
+},
+WindowSize->{809, 912},
+WindowMargins->{{165, Automatic}, {Automatic, 27}},
+FrontEndVersion->"13.0 for Mac OS X ARM (64-bit) (February 4, 2022)",
+StyleDefinitions->"Default.nb",
+ExpressionUUID->"b0960afe-cfd5-48a5-b7f4-ee90f6b73a23"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[580, 22, 9867, 253, 920, "Input",ExpressionUUID->"3b24c383-d56f-49ff-aeff-c83feaae3f7c"],
+Cell[10450, 277, 6309, 127, 882, "Output",ExpressionUUID->"be3d8083-efce-428c-b565-138f135ce8ab"]
+}, Open  ]]
+}
+]
+*)
+
